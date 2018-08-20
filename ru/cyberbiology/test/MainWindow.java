@@ -472,7 +472,7 @@ public class MainWindow extends JFrame implements IWindow
 
         public void mouseReleased(MouseEvent e) {}
    }
-	@Override
+
 	public void setView(IView view)
 	{
 		this.view	= view;
@@ -567,7 +567,7 @@ public class MainWindow extends JFrame implements IWindow
     public static void main(String[] args) {
     	MainWindow.window	= new MainWindow();
     }
-    @Override
+
     public ProjectProperties getProperties()
     {
     	return this.properties;
