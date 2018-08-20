@@ -54,7 +54,7 @@ public class World implements IWorld
 	}
 
 	@Override
-	public void setBot(Bot bot)
+	public void addBot(Bot bot)
 	{
 		this.matrix[bot.x][bot.y] = bot;
 	}

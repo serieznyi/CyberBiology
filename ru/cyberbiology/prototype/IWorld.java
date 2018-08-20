@@ -12,7 +12,7 @@ public interface IWorld
 
 	public void setSize(int width, int height);
 
-	public void setBot(Bot bot);
+	public void addBot(Bot bot);
 
 	public void paint();
 

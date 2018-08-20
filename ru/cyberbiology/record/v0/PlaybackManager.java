@@ -130,7 +130,7 @@ public class PlaybackManager
 							bot.mind[m]=(byte) in.readByte();
 							i++;
 						}
-						world.setBot(bot);
+						world.addBot(bot);
 					}
 					world.restoreLinks();
 					frameNo++;
