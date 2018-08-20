@@ -4,19 +4,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import cyberbiology.prototype.IWindow;
-import cyberbiology.prototype.view.IView;
+import cyberbiology.prototype.view.IRenderer;
 
 public class ViewMenuActionListener implements ActionListener
 {
 	IWindow window;
-	IView view;
-	public ViewMenuActionListener(IWindow window,IView rend)
+	IRenderer view;
+	public ViewMenuActionListener(IWindow window, IRenderer rend)
 	{
 		this.window		= window;
 		this.view	= rend;
 	}
     public void actionPerformed(ActionEvent e)
     {
-    	this.window.setView(this.view);            
+    	this.window.setRenderer(this.view);
     }    
 }

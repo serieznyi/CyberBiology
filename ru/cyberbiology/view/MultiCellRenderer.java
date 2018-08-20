@@ -7,12 +7,12 @@ import java.awt.Image;
 import javax.swing.JPanel;
 
 import cyberbiology.World;
-import cyberbiology.prototype.view.IView;
+import cyberbiology.prototype.view.IRenderer;
 
-public class ViewMultiCell implements IView
+public class MultiCellRenderer implements IRenderer
 {
 
-	public ViewMultiCell()
+	public MultiCellRenderer()
 	{
 		// TODO Auto-generated constructor stub
 	}
@@ -22,7 +22,7 @@ public class ViewMultiCell implements IView
 		// Отображение ...
 		return "Подсветить многоклеточных";
 	}
-    public Image paint(World world,JPanel canvas) {
+    public Image render(World world, JPanel canvas) {
     	int w = canvas.getWidth();
     	int h = canvas.getHeight();
     	//Создаем временный буфер для рисования

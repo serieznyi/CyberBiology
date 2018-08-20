@@ -7,12 +7,12 @@ import java.awt.Image;
 import javax.swing.JPanel;
 
 import cyberbiology.World;
-import cyberbiology.prototype.view.IView;
+import cyberbiology.prototype.view.IRenderer;
 
-public class ViewBasic implements IView
+public class BasicRenderer implements IRenderer
 {
 
-	public ViewBasic()
+	public BasicRenderer()
 	{
 		// TODO Auto-generated constructor stub
 	}
@@ -22,7 +22,7 @@ public class ViewBasic implements IView
 		// Отображение ...
 		return "Базовое";
 	}
-    public Image paint(World world,JPanel canvas) {
+    public Image render(World world, JPanel canvas) {
     	int w = canvas.getWidth();
     	int h = canvas.getHeight();
     	//Создаем временный буфер для рисования

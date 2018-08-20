@@ -32,10 +32,10 @@ import javax.swing.WindowConstants;
 
 import cyberbiology.prototype.IWindow;
 import cyberbiology.prototype.gene.IBotGeneController;
-import cyberbiology.prototype.view.IView;
+import cyberbiology.prototype.view.IRenderer;
 import cyberbiology.util.ProjectProperties;
-import cyberbiology.view.ViewBasic;
-import cyberbiology.view.ViewMultiCell;
+import cyberbiology.view.BasicRenderer;
+import cyberbiology.view.MultiCellRenderer;
 
 public class MainWindow extends JFrame implements IWindow
 {
@@ -61,12 +61,12 @@ public class MainWindow extends JFrame implements IWindow
     /** буфер для отрисовки ботов */
     private Image buffer = null;
     /** актуальный отрисовщик*/
-    private IView	view;
+    private IRenderer view;
     /** Перечень возможных отрисовщиков*/
-    IView[]  views = new IView[]
+    IRenderer[]  views = new IRenderer[]
 		{
-			new ViewBasic(),
-			new ViewMultiCell()
+			new BasicRenderer(),
+			new MultiCellRenderer()
 		};
     JMenuItem recordItem;
     JMenuItem snapShotItem;
@@ -345,7 +345,7 @@ public class MainWindow extends JFrame implements IWindow
         
         this.setJMenuBar(menuBar);
         
-        view = new ViewBasic();
+        view = new BasicRenderer();
         this.pack();
         this.setVisible(true);
         setExtendedState(MAXIMIZED_BOTH);
@@ -471,12 +471,12 @@ public class MainWindow extends JFrame implements IWindow
         public void mouseReleased(MouseEvent e) {}
    }
 
-	public void setView(IView view)
+	public void setRenderer(IRenderer view)
 	{
 		this.view	= view;
 	}
     public void paint() {
-    	buffer = this.view.paint(this.world,this.paintPanel);
+    	buffer = this.view.render(this.world,this.paintPanel);
         generationLabel.setText(" Generation: " + String.valueOf(world.generation));
         populationLabel.setText(" Population: " + String.valueOf(world.population));
         organicLabel.setText(" Organic: " + String.valueOf(world.organic));

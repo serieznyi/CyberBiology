@@ -6,9 +6,9 @@ import javax.swing.JPanel;
 
 import cyberbiology.World;
 
-public interface IView
+public interface IRenderer
 {
-	public Image paint(World world, JPanel canvas);
+	public Image render(World world, JPanel canvas);
 
 	public String getName();
 }
