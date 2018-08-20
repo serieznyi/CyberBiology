@@ -1,7 +1,7 @@
 package cyberbiology.gene;
 
 import cyberbiology.prototype.IBot;
-import cyberbiology.prototype.gene.ABotGeneController;
+import cyberbiology.prototype.gene.ABotGene;
 
 /********************************************************************
 //.............. многоклеточный ли я ? ........................
@@ -21,7 +21,7 @@ import cyberbiology.prototype.gene.ABotGeneController;
  * @author Nickolay
  *
  */
-public class GeneIsMultiCell extends ABotGeneController
+public class GeneIsMultiCell extends ABotGene
 {
 
 	@Override

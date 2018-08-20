@@ -5,7 +5,7 @@ package cyberbiology.prototype.gene;
  * @author Nickolay
  *
  */
-public abstract class ABotGeneController implements IBotGeneController
+public abstract class ABotGene implements IBotGene
 {
 
 

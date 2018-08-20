@@ -1,6 +1,6 @@
 package cyberbiology.gene;
 
-import cyberbiology.prototype.gene.ABotGeneController;
+import cyberbiology.prototype.gene.ABotGene;
 import cyberbiology.prototype.IBot;
 
 /**
@@ -21,7 +21,7 @@ import cyberbiology.prototype.IBot;
  * @author Nickolay
  *
  */
-public class GeneMyHealth extends ABotGeneController
+public class GeneMyHealth extends ABotGene
 {
 
 	@Override

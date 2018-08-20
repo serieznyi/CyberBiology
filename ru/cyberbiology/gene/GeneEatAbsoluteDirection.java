@@ -1,7 +1,7 @@
 package cyberbiology.gene;
 
 import cyberbiology.prototype.IBot;
-import cyberbiology.prototype.gene.ABotGeneController;
+import cyberbiology.prototype.gene.ABotGene;
 
 /**
 //..............   съесть  в абсолютном направлении      ...............
@@ -13,7 +13,7 @@ import cyberbiology.prototype.gene.ABotGeneController;
  * @author Nickolay
  *
  */
-public class GeneEatAbsoluteDirection extends ABotGeneController
+public class GeneEatAbsoluteDirection extends ABotGene
 {
 
 	@Override

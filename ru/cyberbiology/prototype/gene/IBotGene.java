@@ -6,7 +6,7 @@ import cyberbiology.prototype.IBot;
  * @author Nickolay
  *
  */
-public interface IBotGeneController
+public interface IBotGene
 {
 	/**
 	 * Реализация одного шага интерпетации гена

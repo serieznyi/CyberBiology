@@ -1,7 +1,7 @@
 package cyberbiology.gene;
 
 import cyberbiology.prototype.IBot;
-import cyberbiology.prototype.gene.ABotGeneController;
+import cyberbiology.prototype.gene.ABotGene;
 
 /**
 //.............   посмотреть  в относительном напралении ...................................
@@ -14,7 +14,7 @@ import cyberbiology.prototype.gene.ABotGeneController;
  * @author Nickolay
  *
  */
-public class GeneLookRelativeDirection extends ABotGeneController
+public class GeneLookRelativeDirection extends ABotGene
 {
 
 	@Override

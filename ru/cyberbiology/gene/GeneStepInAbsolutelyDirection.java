@@ -2,7 +2,7 @@ package cyberbiology.gene;
 
 
 import cyberbiology.prototype.IBot;
-import cyberbiology.prototype.gene.ABotGeneController;
+import cyberbiology.prototype.gene.ABotGene;
 
 /**
 //*******************************************************************
@@ -18,7 +18,7 @@ import cyberbiology.prototype.gene.ABotGeneController;
  * @author Nickolay
  *
  */
-public class GeneStepInAbsolutelyDirection extends ABotGeneController
+public class GeneStepInAbsolutelyDirection extends ABotGene
 {
 
 	@Override

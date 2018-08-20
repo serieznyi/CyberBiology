@@ -27,7 +27,7 @@ import cyberbiology.gene.GeneСreateBot;
 import cyberbiology.gene.GeneСreateCell;
 import cyberbiology.prototype.IBot;
 import cyberbiology.prototype.IWorld;
-import cyberbiology.prototype.gene.IBotGeneController;
+import cyberbiology.prototype.gene.IBotGene;
 
 
 public class Bot implements IBot
@@ -46,7 +46,7 @@ public class Bot implements IBot
     public Bot mprev;
     public Bot mnext;
 
-    static IBotGeneController[] geneController= new IBotGeneController[64];
+    static IBotGene[] geneController= new IBotGene[64];
     static
     {
 	    geneController[23]	= new GeneChangeDirectionRelative(); //23 сменить направление относительно
@@ -147,7 +147,7 @@ public class Bot implements IBot
 		    	return;   //Это труп - выходим!
 		  }
 
-        IBotGeneController cont	= null;
+        IBotGene cont	= null;
         
         for (int cyc = 0; cyc < MIND_SIZE/4; cyc++)
         {//15

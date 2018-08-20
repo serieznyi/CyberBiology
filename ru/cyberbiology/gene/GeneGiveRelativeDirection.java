@@ -1,7 +1,7 @@
 package cyberbiology.gene;
 
 import cyberbiology.prototype.IBot;
-import cyberbiology.prototype.gene.ABotGeneController;
+import cyberbiology.prototype.gene.ABotGene;
 
 /**
 // отдать - безвозмездно отдать часть энергии и минералов соседу
@@ -15,7 +15,7 @@ import cyberbiology.prototype.gene.ABotGeneController;
  * @author Nickolay
  *
  */
-public class GeneGiveRelativeDirection extends ABotGeneController
+public class GeneGiveRelativeDirection extends ABotGene
 {
 
 	@Override

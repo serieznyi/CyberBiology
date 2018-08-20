@@ -31,7 +31,7 @@ import javax.swing.ToolTipManager;
 import javax.swing.WindowConstants;
 
 import cyberbiology.prototype.IWindow;
-import cyberbiology.prototype.gene.IBotGeneController;
+import cyberbiology.prototype.gene.IBotGene;
 import cyberbiology.prototype.view.IRenderer;
 import cyberbiology.util.ProjectProperties;
 import cyberbiology.view.BasicRenderer;
@@ -261,7 +261,7 @@ public class PlayerWindow extends JFrame implements IWindow
         		
         	    //buf.append("");
        	    
-        	    IBotGeneController cont;
+        	    IBotGene cont;
                 for (int i = 0; i < Bot.MIND_SIZE; i++)
                 {//15
                     int command = bot.mind[i];  // текущая команда
