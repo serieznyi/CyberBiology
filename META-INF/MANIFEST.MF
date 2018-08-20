@@ -1,1 +1,2 @@
-Main-Class: ru.cyberbiology.test.MainWindow
+Manifest-Version: 1.0
+Main-Class: cyberbiology.test.MainWindow
