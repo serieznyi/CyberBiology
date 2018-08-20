@@ -44,7 +44,7 @@ public class MainWindow extends JFrame implements IWindow
 {
 	JMenuItem runItem;
 
-    private static MainWindow window;
+    public static MainWindow window;
 	
 	private static final int BOTW	= 4;
     private static final int BOTH	= 4;
