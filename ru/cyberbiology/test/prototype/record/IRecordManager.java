@@ -1,8 +1,8 @@
-package ru.cyberbiology.test.prototype.record;
+package cyberbiology.test.prototype.record;
 
 import java.io.File;
 
-import ru.cyberbiology.test.prototype.IBot;
+import cyberbiology.test.prototype.IBot;
 
 public interface IRecordManager
 {

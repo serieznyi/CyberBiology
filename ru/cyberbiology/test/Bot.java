@@ -1,33 +1,33 @@
-package ru.cyberbiology.test;
+package cyberbiology.test;
 
 
-import ru.cyberbiology.test.gene.GeneCareAbsolutelyDirection;
-import ru.cyberbiology.test.gene.GeneCareRelativeDirection;
-import ru.cyberbiology.test.gene.GeneChangeDirectionAbsolutely;
-import ru.cyberbiology.test.gene.GeneChangeDirectionRelative;
-import ru.cyberbiology.test.gene.GeneEatAbsoluteDirection;
-import ru.cyberbiology.test.gene.GeneEatRelativeDirection;
-import ru.cyberbiology.test.gene.GeneFlattenedHorizontally;
-import ru.cyberbiology.test.gene.GeneFullAroud;
-import ru.cyberbiology.test.gene.GeneGiveAbsolutelyDirection;
-import ru.cyberbiology.test.gene.GeneGiveRelativeDirection;
-import ru.cyberbiology.test.gene.GeneIsHealthGrow;
-import ru.cyberbiology.test.gene.GeneIsMineralGrow;
-import ru.cyberbiology.test.gene.GeneIsMultiCell;
-import ru.cyberbiology.test.gene.GeneLookRelativeDirection;
-import ru.cyberbiology.test.gene.GeneMineralToEnergy;
-import ru.cyberbiology.test.gene.GeneMutate;
-import ru.cyberbiology.test.gene.GeneMyHealth;
-import ru.cyberbiology.test.gene.GeneMyLevel;
-import ru.cyberbiology.test.gene.GeneMyMineral;
-import ru.cyberbiology.test.gene.GenePhotosynthesis;
-import ru.cyberbiology.test.gene.GeneStepInAbsolutelyDirection;
-import ru.cyberbiology.test.gene.GeneStepInRelativeDirection;
-import ru.cyberbiology.test.gene.GeneСreateBot;
-import ru.cyberbiology.test.gene.GeneСreateCell;
-import ru.cyberbiology.test.prototype.IBot;
-import ru.cyberbiology.test.prototype.IWorld;
-import ru.cyberbiology.test.prototype.gene.IBotGeneController;
+import cyberbiology.test.gene.GeneCareAbsolutelyDirection;
+import cyberbiology.test.gene.GeneCareRelativeDirection;
+import cyberbiology.test.gene.GeneChangeDirectionAbsolutely;
+import cyberbiology.test.gene.GeneChangeDirectionRelative;
+import cyberbiology.test.gene.GeneEatAbsoluteDirection;
+import cyberbiology.test.gene.GeneEatRelativeDirection;
+import cyberbiology.test.gene.GeneFlattenedHorizontally;
+import cyberbiology.test.gene.GeneFullAroud;
+import cyberbiology.test.gene.GeneGiveAbsolutelyDirection;
+import cyberbiology.test.gene.GeneGiveRelativeDirection;
+import cyberbiology.test.gene.GeneIsHealthGrow;
+import cyberbiology.test.gene.GeneIsMineralGrow;
+import cyberbiology.test.gene.GeneIsMultiCell;
+import cyberbiology.test.gene.GeneLookRelativeDirection;
+import cyberbiology.test.gene.GeneMineralToEnergy;
+import cyberbiology.test.gene.GeneMutate;
+import cyberbiology.test.gene.GeneMyHealth;
+import cyberbiology.test.gene.GeneMyLevel;
+import cyberbiology.test.gene.GeneMyMineral;
+import cyberbiology.test.gene.GenePhotosynthesis;
+import cyberbiology.test.gene.GeneStepInAbsolutelyDirection;
+import cyberbiology.test.gene.GeneStepInRelativeDirection;
+import cyberbiology.test.gene.GeneСreateBot;
+import cyberbiology.test.gene.GeneСreateCell;
+import cyberbiology.test.prototype.IBot;
+import cyberbiology.test.prototype.IWorld;
+import cyberbiology.test.prototype.gene.IBotGeneController;
 
 
 public class Bot implements IBot

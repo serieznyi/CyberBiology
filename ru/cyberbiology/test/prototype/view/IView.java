@@ -1,10 +1,10 @@
-package ru.cyberbiology.test.prototype.view;
+package cyberbiology.test.prototype.view;
 
 import java.awt.Image;
 
 import javax.swing.JPanel;
 
-import ru.cyberbiology.test.World;
+import cyberbiology.test.World;
 
 public interface IView
 {

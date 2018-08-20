@@ -1,6 +1,6 @@
-package ru.cyberbiology.test.prototype.gene;
+package cyberbiology.test.prototype.gene;
 
-import ru.cyberbiology.test.prototype.IBot;
+import cyberbiology.test.prototype.IBot;
 
 /**
  * Абстрактный класс обработчика гена, введен, если какие либо методы обработчиков будут общими, тогда их можно реализовать здесь

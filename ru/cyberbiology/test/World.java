@@ -1,13 +1,13 @@
-package ru.cyberbiology.test;
+package cyberbiology.test;
 
 import java.io.File;
 
-import ru.cyberbiology.test.prototype.IWindow;
-import ru.cyberbiology.test.prototype.IWorld;
-import ru.cyberbiology.test.prototype.record.IRecordManager;
-import ru.cyberbiology.test.record.v0.PlaybackManager;
-import ru.cyberbiology.test.record.v0.RecordManager;
-import ru.cyberbiology.test.util.ProjectProperties;
+import cyberbiology.test.prototype.IWindow;
+import cyberbiology.test.prototype.IWorld;
+import cyberbiology.test.prototype.record.IRecordManager;
+import cyberbiology.test.record.v0.PlaybackManager;
+import cyberbiology.test.record.v0.RecordManager;
+import cyberbiology.test.util.ProjectProperties;
 
 public class World implements IWorld
 {

@@ -1,7 +1,7 @@
-package ru.cyberbiology.test.prototype;
+package cyberbiology.test.prototype;
 
-import ru.cyberbiology.test.prototype.view.IView;
-import ru.cyberbiology.test.util.ProjectProperties;
+import cyberbiology.test.prototype.view.IView;
+import cyberbiology.test.util.ProjectProperties;
 
 public interface IWindow
 {

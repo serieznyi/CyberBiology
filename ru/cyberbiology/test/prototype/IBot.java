@@ -1,6 +1,6 @@
-package ru.cyberbiology.test.prototype;
+package cyberbiology.test.prototype;
 
-import ru.cyberbiology.test.World;
+import cyberbiology.test.World;
 
 public interface IBot
 {

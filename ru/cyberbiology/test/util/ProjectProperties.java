@@ -1,4 +1,4 @@
-package ru.cyberbiology.test.util;
+package cyberbiology.test.util;
 
 import java.io.File;
 import java.io.FileInputStream;

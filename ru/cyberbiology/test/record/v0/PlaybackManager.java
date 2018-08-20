@@ -1,4 +1,4 @@
-package ru.cyberbiology.test.record.v0;
+package cyberbiology.test.record.v0;
 
 import java.io.DataInputStream;
 import java.io.File;
@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import ru.cyberbiology.test.Bot;
-import ru.cyberbiology.test.World;
-import ru.cyberbiology.test.prototype.IWorld;
-import ru.cyberbiology.test.prototype.record.IFrame;
+import cyberbiology.test.Bot;
+import cyberbiology.test.World;
+import cyberbiology.test.prototype.IWorld;
+import cyberbiology.test.prototype.record.IFrame;
 /**
 
 * @author Nickolay

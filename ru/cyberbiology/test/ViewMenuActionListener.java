@@ -1,10 +1,10 @@
-package ru.cyberbiology.test;
+package cyberbiology.test;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import ru.cyberbiology.test.prototype.IWindow;
-import ru.cyberbiology.test.prototype.view.IView;
+import cyberbiology.test.prototype.IWindow;
+import cyberbiology.test.prototype.view.IView;
 
 public class ViewMenuActionListener implements ActionListener
 {

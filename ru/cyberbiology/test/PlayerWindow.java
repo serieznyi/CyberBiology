@@ -1,4 +1,4 @@
-package ru.cyberbiology.test;
+package cyberbiology.test;
 
 
 import java.awt.BorderLayout;
@@ -33,12 +33,12 @@ import javax.swing.WindowConstants;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import ru.cyberbiology.test.prototype.IWindow;
-import ru.cyberbiology.test.prototype.gene.IBotGeneController;
-import ru.cyberbiology.test.prototype.view.IView;
-import ru.cyberbiology.test.util.ProjectProperties;
-import ru.cyberbiology.test.view.ViewBasic;
-import ru.cyberbiology.test.view.ViewMultiCell;
+import cyberbiology.test.prototype.IWindow;
+import cyberbiology.test.prototype.gene.IBotGeneController;
+import cyberbiology.test.prototype.view.IView;
+import cyberbiology.test.util.ProjectProperties;
+import cyberbiology.test.view.ViewBasic;
+import cyberbiology.test.view.ViewMultiCell;
 
 public class PlayerWindow extends JFrame implements IWindow
 {

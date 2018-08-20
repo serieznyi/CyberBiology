@@ -1,8 +1,8 @@
-package ru.cyberbiology.test.gene;
+package cyberbiology.test.gene;
 
-import ru.cyberbiology.test.World;
-import ru.cyberbiology.test.prototype.IBot;
-import ru.cyberbiology.test.prototype.gene.ABotGeneController;
+import cyberbiology.test.World;
+import cyberbiology.test.prototype.IBot;
+import cyberbiology.test.prototype.gene.ABotGeneController;
 
 /**
 //*******************************************************************

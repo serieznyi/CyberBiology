@@ -1,4 +1,4 @@
-package ru.cyberbiology.test.prototype.record;
+package cyberbiology.test.prototype.record;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -16,8 +16,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-import ru.cyberbiology.test.prototype.IBot;
-import ru.cyberbiology.test.prototype.IWorld;
+import cyberbiology.test.prototype.IBot;
+import cyberbiology.test.prototype.IWorld;
 /**
  * Абстрактный класс , реализующий базовый функционал
  * Запись ведется в отдельном потоке, поскольку данный очень много 

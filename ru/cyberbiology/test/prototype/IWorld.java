@@ -1,7 +1,7 @@
-package ru.cyberbiology.test.prototype;
+package cyberbiology.test.prototype;
 
-import ru.cyberbiology.test.Bot;
-import ru.cyberbiology.test.util.ProjectProperties;
+import cyberbiology.test.Bot;
+import cyberbiology.test.util.ProjectProperties;
 
 public interface IWorld
 {

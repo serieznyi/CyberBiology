@@ -1,4 +1,4 @@
-package ru.cyberbiology.test.view;
+package cyberbiology.test.view;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -6,8 +6,8 @@ import java.awt.Image;
 
 import javax.swing.JPanel;
 
-import ru.cyberbiology.test.World;
-import ru.cyberbiology.test.prototype.view.IView;
+import cyberbiology.test.World;
+import cyberbiology.test.prototype.view.IView;
 
 public class ViewMultiCell implements IView
 {

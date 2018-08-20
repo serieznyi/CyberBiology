@@ -1,9 +1,9 @@
-package ru.cyberbiology.test.prototype.record;
+package cyberbiology.test.prototype.record;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import ru.cyberbiology.test.prototype.IBot;
+import cyberbiology.test.prototype.IBot;
 
 public interface IFrame
 {
