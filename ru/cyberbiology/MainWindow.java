@@ -146,84 +146,72 @@ public class MainWindow extends JFrame implements IWindow
          
         runItem = new JMenuItem("Запустить");
         fileMenu.add(runItem);
-        runItem.addActionListener(new ActionListener()
-        {           
-            public void actionPerformed(ActionEvent e)
+        runItem.addActionListener(e -> {
+            if(world==null)
             {
-            	if(world==null)
-            	{
-                	int width = paintPanel.getWidth()/BOTW;// Ширина доступной части экрана для рисования карты
-                	int height = paintPanel.getHeight()/BOTH;// Боты 4 пикселя?
-	            	world = new World(window,width,height);
-	            	world.generateAdam();
-	                paint();
-            	}
-            	if(!world.started())
-            	{
-            		world.start();//Запускаем его
-            		runItem.setText("Пауза");
-            		
-            	}else
-            	{
-            		world.stop();
-            		runItem.setText("Продолжить");
-            		snapShotItem.setEnabled(true);
-            	}
-            	
-            }           
+                int width = paintPanel.getWidth()/BOTW;// Ширина доступной части экрана для рисования карты
+                int height = paintPanel.getHeight()/BOTH;// Боты 4 пикселя?
+                world = new World(window,width,height);
+                world.generateAdam();
+                paint();
+            }
+            if(!world.started())
+            {
+                world.start();//Запускаем его
+                runItem.setText("Пауза");
+
+            }else
+            {
+                world.stop();
+                runItem.setText("Продолжить");
+                snapShotItem.setEnabled(true);
+            }
+
         });
         snapShotItem = new JMenuItem("Сделать снимок");
         fileMenu.add(snapShotItem);
         snapShotItem.setEnabled(false);
-        snapShotItem.addActionListener(new ActionListener()
-        {           
-            public void actionPerformed(ActionEvent e)
+        snapShotItem.addActionListener(e -> {
+            if(world==null)
             {
-            	if(world==null)
-            	{
-                	int width = paintPanel.getWidth()/BOTW;// Ширина доступной части экрана для рисования карты
-                	int height = paintPanel.getHeight()/BOTH;// Боты 4 пикселя?
-	            	world = new World(window,width,height);
-	            	world.generateAdam();
-	                paint();
-            	}
-            	world.stop();
-            	runItem.setText("Продолжить");
-            	world.makeSnapShot();
-            }           
+                int width = paintPanel.getWidth()/BOTW;// Ширина доступной части экрана для рисования карты
+                int height = paintPanel.getHeight()/BOTH;// Боты 4 пикселя?
+                world = new World(window,width,height);
+                world.generateAdam();
+                paint();
+            }
+            world.stop();
+            runItem.setText("Продолжить");
+            world.makeSnapShot();
         });
         
         recordItem = new JMenuItem("Начать запись");
         fileMenu.add(recordItem);
         
-        recordItem.addActionListener(new ActionListener()
-        {           
-            public void actionPerformed(ActionEvent e)
+        recordItem.addActionListener(e -> {
+            if(world==null)
             {
-            	if(world==null)
-            	{
-                	int width = paintPanel.getWidth()/BOTW;// Ширина доступной части экрана для рисования карты
-                	int height = paintPanel.getHeight()/BOTH;// Боты 4 пикселя?
-	            	world = new World(window,width,height);
-	            	world.generateAdam();
-	                paint();
-            	}
-            	if(!world.isRecording())
-            	{
-            		world.startRecording();
-            		recordItem.setText("Сохранить запись");
-            	}else
-            	{
-            		recordItem.setText("Начать запись");
-            		
-            		world.stopRecording();
-            		if(world.haveRecord())
-            		{
-            			//saveItem.setEnabled(true);
-            			//deleteItem.setEnabled(true);
-            			//recordItem.setEnabled(false);
-            		}
-            	}
+                int width = paintPanel.getWidth()/BOTW;// Ширина доступной части экрана для рисования карты
+                int height = paintPanel.getHeight()/BOTH;// Боты 4 пикселя?
+                world = new World(window,width,height);
+                world.generateAdam();
+                paint();
+            }
+            if(!world.isRecording())
+            {
+                world.startRecording();
+                recordItem.setText("Сохранить запись");
+            }else
+            {
+                recordItem.setText("Начать запись");
+
+                world.stopRecording();
+                if(world.haveRecord())
+                {
+                    //saveItem.setEnabled(true);
+                    //deleteItem.setEnabled(true);
+                    //recordItem.setEnabled(false);
+                }
             }
         });
         /*
@@ -269,37 +257,26 @@ public class MainWindow extends JFrame implements IWindow
         /**/
         JMenuItem openItem = new JMenuItem("Открыть плеер");
         fileMenu.add(openItem);
-        openItem.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
+        openItem.addActionListener(e -> {
+            /*
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("*.cb.zip","*.*");
+            JFileChooser fc = new JFileChooser();
+            fc.setFileFilter(filter);
+            if (fc.showSaveDialog(window) == JFileChooser.APPROVE_OPTION)
             {
-            	/*
-            	FileNameExtensionFilter filter = new FileNameExtensionFilter("*.cb.zip","*.*");
-                JFileChooser fc = new JFileChooser();
-                fc.setFileFilter(filter);
-                if (fc.showSaveDialog(window) == JFileChooser.APPROVE_OPTION)
-                {
-                	File f	= fc.getSelectedFile();
-                	PlayerWindow fw	= new PlayerWindow();
-                	fw.openFile(f);
-                }/*/
-            	PlayerWindow fw	= new PlayerWindow();
-            	//fw.openFile(new File(world.getProperties().getFileDirectory()+"test.cb.zip"));
-            }
+                File f	= fc.getSelectedFile();
+                PlayerWindow fw	= new PlayerWindow();
+                fw.openFile(f);
+            }/*/
+            PlayerWindow fw	= new PlayerWindow();
+            //fw.openFile(new File(world.getProperties().getFileDirectory()+"test.cb.zip"));
         });
 
         fileMenu.addSeparator();
         
         JMenuItem optionItem = new JMenuItem("Настройки");
         fileMenu.add(optionItem);
-        optionItem.addActionListener(new ActionListener()
-        {           
-            public void actionPerformed(ActionEvent e)
-            {
-            	showPropertyDialog();
-
-            }           
-        });
+        optionItem.addActionListener(e -> showPropertyDialog());
         
 
         fileMenu.addSeparator();
@@ -307,26 +284,22 @@ public class MainWindow extends JFrame implements IWindow
         JMenuItem exitItem = new JMenuItem("Выйти");
         fileMenu.add(exitItem);
          
-        exitItem.addActionListener(new ActionListener()
-        {           
-            public void actionPerformed(ActionEvent e)
+        exitItem.addActionListener(e -> {
+            // Попытка корректно заверишть запись, если она велась
+            // TODO: Не тестировалось!
+            if(world!=null && world.isRecording())
             {
-            	// Попытка корректно заверишть запись, если она велась
-            	// TODO: Не тестировалось!
-            	if(world!=null && world.isRecording())
-            	{
-            		world.stopRecording();
-            		try
-					{
-						Thread.sleep(1000);
-					} catch (InterruptedException e1)
-					{
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-            	}
-            	System.exit(0);             
-            }           
+                world.stopRecording();
+                try
+                {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e1)
+                {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+            }
+            System.exit(0);
         });
          
         menuBar.add(fileMenu);
