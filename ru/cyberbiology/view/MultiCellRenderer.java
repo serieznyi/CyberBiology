@@ -11,17 +11,11 @@ import cyberbiology.prototype.view.IRenderer;
 
 public class MultiCellRenderer implements IRenderer
 {
-
-	public MultiCellRenderer()
-	{
-		// TODO Auto-generated constructor stub
-	}
-	@Override
 	public String getName()
 	{
-		// Отображение ...
 		return "Подсветить многоклеточных";
 	}
+
     public Image render(World world, JPanel canvas) {
     	int w = canvas.getWidth();
     	int h = canvas.getHeight();

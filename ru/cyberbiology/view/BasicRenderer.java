@@ -11,17 +11,11 @@ import cyberbiology.prototype.view.IRenderer;
 
 public class BasicRenderer implements IRenderer
 {
-
-	public BasicRenderer()
-	{
-		// TODO Auto-generated constructor stub
-	}
-	@Override
 	public String getName()
 	{
-		// Отображение ...
 		return "Базовое";
 	}
+
     public Image render(World world, JPanel canvas) {
     	int w = canvas.getWidth();
     	int h = canvas.getHeight();

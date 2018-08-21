@@ -10,8 +10,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -60,10 +58,11 @@ public class MainWindow extends JFrame implements IWindow
     private final JLabel frameSkipSizeLabel = new JLabel("");
     /** буфер для отрисовки ботов */
     private Image buffer = null;
-    /** актуальный отрисовщик*/
-    private IRenderer view;
+
+    private IRenderer renderer;
+
     /** Перечень возможных отрисовщиков*/
-    IRenderer[]  views = new IRenderer[]
+    final private IRenderer[] availableRenderers = new IRenderer[]
 		{
 			new BasicRenderer(),
 			new MultiCellRenderer()
@@ -253,15 +252,15 @@ public class MainWindow extends JFrame implements IWindow
         
         JMenuItem item;
 
-        for (IRenderer view1 : views) {
-            item = new JMenuItem(view1.getName());
+        for (IRenderer renderer1 : availableRenderers) {
+            item = new JMenuItem(renderer1.getName());
             ViewMenu.add(item);
-            item.addActionListener(new ViewMenuActionListener(this, view1));
+            item.addActionListener(new ViewMenuActionListener(this, renderer1));
         }
         
         this.setJMenuBar(menuBar);
         
-        this.view = new BasicRenderer();
+        this.renderer = new BasicRenderer();
         this.pack();
         this.setVisible(true);
         this.setExtendedState(MAXIMIZED_BOTH);
@@ -394,11 +393,11 @@ public class MainWindow extends JFrame implements IWindow
 
 	public void setRenderer(IRenderer view)
 	{
-		this.view = view;
+		this.renderer = view;
 	}
 
     public void paint() {
-    	buffer = this.view.render(world, this.paintPanel);
+    	buffer = this.renderer.render(world, this.paintPanel);
         generationLabel.setText(" Generation: " + String.valueOf(world.generation));
         populationLabel.setText(" Population: " + String.valueOf(world.population));
         organicLabel.setText(" Organic: " + String.valueOf(world.organic));

@@ -9,14 +9,14 @@ import cyberbiology.prototype.view.IRenderer;
 public class ViewMenuActionListener implements ActionListener
 {
 	IWindow window;
-	IRenderer view;
+	IRenderer renderer;
 	public ViewMenuActionListener(IWindow window, IRenderer rend)
 	{
 		this.window		= window;
-		this.view	= rend;
+		this.renderer = rend;
 	}
     public void actionPerformed(ActionEvent e)
     {
-    	this.window.setRenderer(this.view);
+    	this.window.setRenderer(this.renderer);
     }    
 }
