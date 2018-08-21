@@ -86,14 +86,17 @@ public class MainWindow extends JFrame implements IWindow
     	window	= this;
 		properties	= new ProjectProperties("properties.xml");
 
-		
         setTitle("CyberBiologyTest 1.0.0");
-        setSize(new Dimension(1800, 900));
+
+        this.setSize(new Dimension(1800, 900));
+
         Dimension sSize = Toolkit.getDefaultToolkit().getScreenSize(), fSize = getSize();
+
         if (fSize.height > sSize.height) { fSize.height = sSize.height; }
+
         if (fSize.width  > sSize.width)  { fSize.width = sSize.width; }
-        //setLocation((sSize.width - fSize.width)/2, (sSize.height - fSize.height)/2);
-        setSize(new Dimension(sSize.width, sSize.height));
+
+        this.setSize(new Dimension(sSize.width, sSize.height));
         
         
         setDefaultCloseOperation (WindowConstants.EXIT_ON_CLOSE);
@@ -101,10 +104,9 @@ public class MainWindow extends JFrame implements IWindow
         Container container = getContentPane();
 
         container.setLayout(new BorderLayout());// у этого лейаута приятная особенность - центральная часть растягивается автоматически
+
         container.add(paintPanel, BorderLayout.CENTER);// добавляем нашу карту в центр
-        //container.add(paintPanel);
-        
-        
+
         JPanel statusPanel = new JPanel(new FlowLayout());
         statusPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         statusPanel.setBorder(BorderFactory.createLoweredBevelBorder());
@@ -214,47 +216,6 @@ public class MainWindow extends JFrame implements IWindow
                 }
             }
         });
-        /*
-        saveItem = new JMenuItem("Сохранить запись");
-        fileMenu.add(saveItem);
-        saveItem.setEnabled(false);
-        saveItem.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-            	/ *FileNameExtensionFilter filter = new FileNameExtensionFilter("*.cb.zip","*.*");
-                JFileChooser fc = new JFileChooser();
-                fc.setFileFilter(filter);
-                if (fc.showSaveDialog(window) == JFileChooser.APPROVE_OPTION)
-                {
-                	world.saveRecord(fc.getSelectedFile());
-                	saveItem.setEnabled(false);
-                	deleteItem.setEnabled(false);
-                	recordItem.setEnabled(true);
-                } * /
-            	world.saveRecord(new File("/Users/Kolya/Documents/workspace/CyberBiologyTest/save/test.cb.zip"));
-            	saveItem.setEnabled(false);
-            	deleteItem.setEnabled(false);
-            	recordItem.setEnabled(true);
-            }
-        });
-        */
-        /*
-        deleteItem = new JMenuItem("Удалить запись");
-        fileMenu.add(deleteItem);
-        deleteItem.setEnabled(false);
-        deleteItem.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-            	world.deleteRecord();
-
-            	saveItem.setEnabled(false);
-            	deleteItem.setEnabled(false);
-            	recordItem.setEnabled(true);
-            }
-        });*/
-        /**/
         JMenuItem openItem = new JMenuItem("Открыть плеер");
         fileMenu.add(openItem);
         openItem.addActionListener(e -> {
@@ -277,7 +238,6 @@ public class MainWindow extends JFrame implements IWindow
         JMenuItem optionItem = new JMenuItem("Настройки");
         fileMenu.add(optionItem);
         optionItem.addActionListener(e -> showPropertyDialog());
-        
 
         fileMenu.addSeparator();
          
@@ -303,31 +263,32 @@ public class MainWindow extends JFrame implements IWindow
         });
          
         menuBar.add(fileMenu);
-        
-        
+
         JMenu ViewMenu = new JMenu("Вид");
         menuBar.add(ViewMenu);
         
         JMenuItem item;
-        for(int i=0;i<views.length;i++)
-        {
-        	item = new JMenuItem(views[i].getName());
-        	ViewMenu.add(item);
-            item.addActionListener(new ViewMenuActionListener(this, views[i]));
+
+        for (IRenderer view1 : views) {
+            item = new JMenuItem(view1.getName());
+            ViewMenu.add(item);
+            item.addActionListener(new ViewMenuActionListener(this, view1));
         }
         
         this.setJMenuBar(menuBar);
         
-        view = new BasicRenderer();
+        this.view = new BasicRenderer();
         this.pack();
         this.setVisible(true);
-        setExtendedState(MAXIMIZED_BOTH);
+        this.setExtendedState(MAXIMIZED_BOTH);
         
         String tmp = this.getFileDirectory();
-        if(tmp==null||tmp.length()==0)
-        	showPropertyDialog();
+        if(tmp==null||tmp.length()==0) {
+            this.showPropertyDialog();
+        }
     }
-    void showPropertyDialog()
+
+    private void showPropertyDialog()
     {
     	JTextField fileDirectoryName = new JTextField();
     	fileDirectoryName.setText(getFileDirectory());
@@ -342,14 +303,17 @@ public class MainWindow extends JFrame implements IWindow
     		window.setFileDirectory(fileDirectoryName.getText());
     	}
     }
-    protected void setFileDirectory(String name)
+
+    private void setFileDirectory(String name)
 	{
     	this.properties.setFileDirectory(name);
 	}
-    protected String getFileDirectory()
+
+    private String getFileDirectory()
 	{
     	return this.properties.getFileDirectory();
 	}
+
 	class CustomListener implements MouseListener {
     	 
         public void mouseClicked(MouseEvent e) {
@@ -446,10 +410,11 @@ public class MainWindow extends JFrame implements IWindow
 
 	public void setRenderer(IRenderer view)
 	{
-		this.view	= view;
+		this.view = view;
 	}
+
     public void paint() {
-    	buffer = this.view.render(this.world,this.paintPanel);
+    	buffer = this.view.render(world, this.paintPanel);
         generationLabel.setText(" Generation: " + String.valueOf(world.generation));
         populationLabel.setText(" Population: " + String.valueOf(world.population));
         organicLabel.setText(" Organic: " + String.valueOf(world.organic));
@@ -457,17 +422,15 @@ public class MainWindow extends JFrame implements IWindow
         
         Runtime runtime = Runtime.getRuntime();
         long memory = runtime.totalMemory() - runtime.freeMemory();
-        memoryLabel.setText(" Memory MB: " + String.valueOf(memory/(1024L * 1024L)));
+        this.memoryLabel.setText(" Memory MB: " + String.valueOf(memory/(1024L * 1024L)));
         
-        frameSavedCounterLabel.setText(" Saved frames: " + String.valueOf(world.world.recorder.getFrameSavedCounter()));
-        frameSkipSizeLabel.setText(" Skip frames: " + String.valueOf(world.world.recorder.getFrameSkipSize()));
-        
-
-        paintPanel.repaint();
+        this.frameSavedCounterLabel.setText(" Saved frames: " + String.valueOf(world.world.recorder.getFrameSavedCounter()));
+        this.frameSkipSizeLabel.setText(" Skip frames: " + String.valueOf(world.world.recorder.getFrameSkipSize()));
+        this.paintPanel.repaint();
     }
 
     public static void main(String[] args) {
-    	MainWindow.window	= new MainWindow();
+    	MainWindow.window = new MainWindow();
     }
 
     public ProjectProperties getProperties()
