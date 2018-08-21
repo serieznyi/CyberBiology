@@ -41,7 +41,7 @@ public class MainWindow extends JFrame implements IWindow
 {
 	JMenuItem runItem;
 
-    public static MainWindow window;
+    private static MainWindow window;
 	
 	private static final int BOTW	= 4;
     private static final int BOTH	= 4;
@@ -216,22 +216,6 @@ public class MainWindow extends JFrame implements IWindow
                 }
             }
         });
-        JMenuItem openItem = new JMenuItem("Открыть плеер");
-        fileMenu.add(openItem);
-        openItem.addActionListener(e -> {
-            /*
-            FileNameExtensionFilter filter = new FileNameExtensionFilter("*.cb.zip","*.*");
-            JFileChooser fc = new JFileChooser();
-            fc.setFileFilter(filter);
-            if (fc.showSaveDialog(window) == JFileChooser.APPROVE_OPTION)
-            {
-                File f	= fc.getSelectedFile();
-                PlayerWindow fw	= new PlayerWindow();
-                fw.openFile(f);
-            }/*/
-            PlayerWindow fw	= new PlayerWindow();
-            //fw.openFile(new File(world.getProperties().getFileDirectory()+"test.cb.zip"));
-        });
 
         fileMenu.addSeparator();
         
@@ -309,7 +293,7 @@ public class MainWindow extends JFrame implements IWindow
     	this.properties.setFileDirectory(name);
 	}
 
-    private String getFileDirectory()
+    public String getFileDirectory()
 	{
     	return this.properties.getFileDirectory();
 	}

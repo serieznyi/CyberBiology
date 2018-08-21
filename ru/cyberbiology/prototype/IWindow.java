@@ -3,6 +3,9 @@ package cyberbiology.prototype;
 import cyberbiology.prototype.view.IRenderer;
 import cyberbiology.util.ProjectProperties;
 
+/**
+ * @deprecated
+ */
 public interface IWindow
 {
 
