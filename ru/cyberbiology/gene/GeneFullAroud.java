@@ -10,7 +10,7 @@ import cyberbiology.prototype.gene.ABotGene;
                 // увеличиваем значение указателя текущей команды
                 // на значение следующего байта после команды или 2-го байта после команды
                 // в зависимости от того, окружен бот или нет
-                botIndirectIncCmdAddress(this, fullAroud(this));
+                botIndirectIncCmdAddress(this, fullAround(this));
             }
 
  * @author Nickolay
@@ -26,7 +26,7 @@ public class GeneFullAroud extends ABotGene
         // увеличиваем значение указателя текущей команды
         // на значение следующего байта после команды или 2-го байта после команды
         // в зависимости от того, окружен бот или нет
-        bot.indirectIncCmdAddress(bot.fullAroud());
+        bot.indirectIncCmdAddress(bot.fullAround());
         return false;
 	}
 	public String getDescription(IBot bot, int i)

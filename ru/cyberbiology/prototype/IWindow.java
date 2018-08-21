@@ -9,10 +9,10 @@ import cyberbiology.util.ProjectProperties;
 public interface IWindow
 {
 
-	public void paint();
+	void paint();
 
-	public void setRenderer(IRenderer view);
+	void setRenderer(IRenderer view);
 
-	public ProjectProperties getProperties();
+	ProjectProperties getProperties();
 
 }

@@ -1,14 +1,13 @@
 package cyberbiology.prototype.view;
 
-import java.awt.Image;
-
-import javax.swing.JPanel;
-
 import cyberbiology.World;
+
+import javax.swing.*;
+import java.awt.*;
 
 public interface IRenderer
 {
-	public Image render(World world, JPanel canvas);
+	Image render(World world, JPanel canvas);
 
-	public String getName();
+	String getName();
 }

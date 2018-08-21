@@ -5,21 +5,20 @@ import cyberbiology.util.ProjectProperties;
 
 public interface IWorld
 {
+	int getWidth();
 
-	public int getWidth();
+	int getHeight();
 
-	public int getHeight();
+	void setSize(int width, int height);
 
-	public void setSize(int width, int height);
+	void addBot(Bot bot);
 
-	public void addBot(Bot bot);
+	void paint();
 
-	public void paint();
+	ProjectProperties getProperties();
 
-	public ProjectProperties getProperties();
+	Bot[][] getWorldArray();
 
-	public Bot[][] getWorldArray();
-
-	public void restoreLinks();
+	void restoreLinks();
 
 }

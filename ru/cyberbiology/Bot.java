@@ -1127,11 +1127,11 @@ public class Bot implements IBot
 		return this.direction;
 	}
 	@Override
-	public void setDirection(int newdrct)
+	public void setDirection(int newDirection)
 	{
-        if (newdrct >= 8)
-            newdrct = newdrct - 8; // результат должен быть в пределах от 0 до 8
-		this.direction	= newdrct;
+        if (newDirection >= 8)
+            newDirection = newDirection - 8; // результат должен быть в пределах от 0 до 8
+		this.direction	= newDirection;
 	}
 	@Override
 	public void incCommandAddress(int i)
@@ -1154,29 +1154,29 @@ public class Bot implements IBot
 		return isMulti(this);
 	}
 	@Override
-	public int move(int drct, int i)
+	public int move(int direction, int i)
 	{
-		return this.botMove(this, drct, i);
+		return this.botMove(this, direction, i);
 	}
 	@Override
-	public int eat(int drct, int i)
+	public int eat(int direction, int i)
 	{
-		return botEat(this, drct, i);
+		return botEat(this, direction, i);
 	}
 	@Override
-	public int seeBots(int drct, int i)
+	public int seeBots(int direction, int i)
 	{
-		return botSeeBots(this, drct, i);
+		return botSeeBots(this, direction, i);
 	}
 	@Override
-	public int care(int drct, int i)
+	public int care(int direction, int i)
 	{
-		return botCare(this, drct, i);
+		return botCare(this, direction, i);
 	}
 	@Override
-	public int give(int drct, int i)
+	public int give(int direction, int i)
 	{
-		return botGive(this, drct, i);
+		return botGive(this, direction, i);
 	}
 	public int getY()
 	{
@@ -1201,7 +1201,7 @@ public class Bot implements IBot
 		this.botMulti(this);
 	}
 	@Override
-	public int fullAroud()
+	public int fullAround()
 	{
 		return fullAroud(this);
 	}
