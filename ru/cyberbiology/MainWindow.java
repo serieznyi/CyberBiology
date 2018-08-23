@@ -1,6 +1,14 @@
 package cyberbiology;
 
+import cyberbiology.prototype.IWindow;
+import cyberbiology.prototype.gene.IBotGene;
+import cyberbiology.prototype.view.IRenderer;
+import cyberbiology.ui.PropertyDialog;
+import cyberbiology.util.ProjectProperties;
+import cyberbiology.view.BasicRenderer;
+import cyberbiology.view.MultiCellRenderer;
 
+import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -13,77 +21,54 @@ import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.ToolTipManager;
-// Тест
-// Основной класс программы.
-import javax.swing.WindowConstants;
-
-import cyberbiology.prototype.IWindow;
-import cyberbiology.prototype.gene.IBotGene;
-import cyberbiology.prototype.view.IRenderer;
-import cyberbiology.util.ProjectProperties;
-import cyberbiology.view.BasicRenderer;
-import cyberbiology.view.MultiCellRenderer;
-
 public class MainWindow extends JFrame implements IWindow
 {
-	JMenuItem runItem;
+    private static final int BOT_WIDTH = 4;
+    private static final int BOT_HEIGHT = 4;
 
     private static MainWindow window;
-	
-	private static final int BOTW	= 4;
-    private static final int BOTH	= 4;
 
     private static World world;
-   // JPanel paintPanel = new JPanel(new FlowLayout());
+
+    private JMenuItem runItem;
+    private JMenuItem recordItem;
+    private JMenuItem snapShotItem;
 
     private final JLabel generationLabel = new JLabel(" Generation: 0 ");
     private final JLabel populationLabel = new JLabel(" Population: 0 ");
     private final JLabel organicLabel = new JLabel(" Organic: 0 ");
-
     private final JLabel recorderBufferLabel = new JLabel("");
     private final JLabel memoryLabel = new JLabel("");
-
     private final JLabel frameSavedCounterLabel = new JLabel("");
     private final JLabel frameSkipSizeLabel = new JLabel("");
-    /** буфер для отрисовки ботов */
-    private Image buffer = null;
+
+    private PropertyDialog propertyDialog;
+
+    private JPanel paintPanel = new JPanel()
+    {
+        public void paint(Graphics g)
+        {
+            g.drawImage(buffer, 0, 0, null);
+        };
+    };
+
+    private Image buffer;
 
     private IRenderer renderer;
 
-    /** Перечень возможных отрисовщиков*/
     final private IRenderer[] availableRenderers = new IRenderer[]
-		{
-			new BasicRenderer(),
-			new MultiCellRenderer()
-		};
-    JMenuItem recordItem;
-    JMenuItem snapShotItem;
-    //JMenuItem saveItem;
-    //JMenuItem deleteItem;
-    private JPanel paintPanel = new JPanel()
-    {
-    	public void paint(Graphics g)
-    	{
-    		g.drawImage(buffer, 0, 0, null);
-    	};
-    }; 
+        {
+            new BasicRenderer(),
+            new MultiCellRenderer()
+        };
+
     private ProjectProperties properties;
 
-    public MainWindow()
-    {
+    public MainWindow() {
     	window	= this;
 		properties	= new ProjectProperties("properties.xml");
+
+		this.propertyDialog = new PropertyDialog(properties, window);
 
         setTitle("CyberBiologyTest 1.0.0");
 
@@ -150,8 +135,8 @@ public class MainWindow extends JFrame implements IWindow
         runItem.addActionListener(e -> {
             if(world==null)
             {
-                int width = paintPanel.getWidth()/BOTW;// Ширина доступной части экрана для рисования карты
-                int height = paintPanel.getHeight()/BOTH;// Боты 4 пикселя?
+                int width = paintPanel.getWidth()/ BOT_WIDTH;// Ширина доступной части экрана для рисования карты
+                int height = paintPanel.getHeight()/ BOT_HEIGHT;// Боты 4 пикселя?
                 world = new World(window,width,height);
                 world.generateAdam();
                 paint();
@@ -175,8 +160,8 @@ public class MainWindow extends JFrame implements IWindow
         snapShotItem.addActionListener(e -> {
             if(world==null)
             {
-                int width = paintPanel.getWidth()/BOTW;// Ширина доступной части экрана для рисования карты
-                int height = paintPanel.getHeight()/BOTH;// Боты 4 пикселя?
+                int width = paintPanel.getWidth() / BOT_WIDTH;// Ширина доступной части экрана для рисования карты
+                int height = paintPanel.getHeight() / BOT_HEIGHT;// Боты 4 пикселя?
                 world = new World(window,width,height);
                 world.generateAdam();
                 paint();
@@ -192,8 +177,8 @@ public class MainWindow extends JFrame implements IWindow
         recordItem.addActionListener(e -> {
             if(world==null)
             {
-                int width = paintPanel.getWidth()/BOTW;// Ширина доступной части экрана для рисования карты
-                int height = paintPanel.getHeight()/BOTH;// Боты 4 пикселя?
+                int width = paintPanel.getWidth() / BOT_WIDTH;// Ширина доступной части экрана для рисования карты
+                int height = paintPanel.getHeight() / BOT_HEIGHT;// Боты 4 пикселя?
                 world = new World(window,width,height);
                 world.generateAdam();
                 paint();
@@ -220,7 +205,7 @@ public class MainWindow extends JFrame implements IWindow
         
         JMenuItem optionItem = new JMenuItem("Настройки");
         fileMenu.add(optionItem);
-        optionItem.addActionListener(e -> showPropertyDialog());
+        optionItem.addActionListener(e -> this.propertyDialog.show());
 
         fileMenu.addSeparator();
          
@@ -265,37 +250,11 @@ public class MainWindow extends JFrame implements IWindow
         this.setVisible(true);
         this.setExtendedState(MAXIMIZED_BOTH);
         
-        String tmp = this.getFileDirectory();
-        if(tmp==null||tmp.length()==0) {
-            this.showPropertyDialog();
+        String tmp = this.properties.getFileDirectory();
+        if(tmp==null || tmp.length()==0) {
+            this.propertyDialog.show();
         }
     }
-
-    private void showPropertyDialog()
-    {
-    	JTextField fileDirectoryName = new JTextField();
-    	fileDirectoryName.setText(getFileDirectory());
-    	final JComponent[] inputs = new JComponent[]
-    			{
-    	        	new JLabel("Директория для хранения файлов записи"),
-    	        	fileDirectoryName,
-    			};
-    	int result = JOptionPane.showConfirmDialog(window, inputs, "Настройки",JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,null);
-    	if (result == JOptionPane.OK_OPTION)
-    	{
-    		window.setFileDirectory(fileDirectoryName.getText());
-    	}
-    }
-
-    private void setFileDirectory(String name)
-	{
-    	this.properties.setFileDirectory(name);
-	}
-
-    public String getFileDirectory()
-	{
-    	return this.properties.getFileDirectory();
-	}
 
 	class CustomListener implements MouseListener {
     	 
@@ -305,15 +264,15 @@ public class MainWindow extends JFrame implements IWindow
         	Point p	= e.getPoint();
         	int x	= (int) p.getX();
         	int y	= (int) p.getY();
-        	int botX=(x-2)/BOTW;
-        	int botY=(y-2)/BOTH;	
+        	int botX=(x-2)/ BOT_WIDTH;
+        	int botY=(y-2)/ BOT_HEIGHT;
         	Bot bot	= world.getBot(botX,botY);
         	if(bot!=null)
         	{
         		{
         			Graphics g	= buffer.getGraphics();
 	        		g.setColor(Color.MAGENTA);
-	        		g.fillRect(botX * BOTW, botY * BOTH, BOTW, BOTH);
+	        		g.fillRect(botX * BOT_WIDTH, botY * BOT_HEIGHT, BOT_WIDTH, BOT_HEIGHT);
 //                    g.setColor(Color.BLACK);
   //                  g.drawRect(botX * 4, botY * 4, 4, 4);
 	                paintPanel.repaint();
