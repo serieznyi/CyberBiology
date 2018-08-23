@@ -7,45 +7,50 @@ import java.util.Properties;
 
 public class ProjectProperties extends Properties
 {
-	String fileName;
-	public ProjectProperties(String fileName)
+	private String propertiesFile;
+
+	public ProjectProperties(String propertiesFile)
 	{
-		this.fileName	= fileName;
+		this.propertiesFile = propertiesFile;
+
 		this.load();
 	}
+
     public void setFileDirectory(String name)
 	{
-		if(name==null)
+		if(name==null) {
 			name="";
-		if(name.length()>0&&!name.endsWith(File.separator))
+		}
+
+		if(name.length()>0&&!name.endsWith(File.separator)) {
 			name+=File.separator;
-		
-    	this.setProperty("FileDirectory",name);
+		}
+
+    	this.setProperty("FileDirectory", name);
+
     	this.save();
 	}
+
     public String getFileDirectory()
 	{
     	return this.getProperty("FileDirectory");
 	}
-	public void load()
+
+	private void load()
 	{
-		try
-		{
-			this.loadFromXML(new FileInputStream(this.fileName));
-		}catch (Exception e)
-		{
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
+		try {
+			this.loadFromXML(new FileInputStream(this.propertiesFile));
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-	};
-	public void save()
+	}
+
+	private void save()
 	{
-    	try
-		{
-			this.storeToXML(new FileOutputStream(this.fileName), null);
-		}catch (Exception e)
-		{
-			// TODO Auto-generated catch block
+    	try {
+			this.storeToXML(new FileOutputStream(this.propertiesFile), null);
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
