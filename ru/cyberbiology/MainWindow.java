@@ -124,8 +124,6 @@ public class MainWindow extends JFrame implements IWindow
         frameSkipSizeLabel.setBorder(BorderFactory.createLoweredBevelBorder());
         statusPanel.add(frameSkipSizeLabel);
         
-        paintPanel.addMouseListener(new CustomListener());
-        
         JMenuBar menuBar = new JMenuBar();
         
         JMenu fileMenu = new JMenu("File");
@@ -253,100 +251,6 @@ public class MainWindow extends JFrame implements IWindow
             this.propertyDialog.show();
         }
     }
-
-	class CustomListener implements MouseListener {
-    	 
-        public void mouseClicked(MouseEvent e) {
-        	if(world.isStarted()) return;//Если идет обсчет не суетимся, выводить ничего не надо.
-        	
-        	Point p	= e.getPoint();
-        	int x	= (int) p.getX();
-        	int y	= (int) p.getY();
-        	int botX=(x-2)/ BOT_WIDTH;
-        	int botY=(y-2)/ BOT_HEIGHT;
-        	Bot bot	= world.getBot(botX,botY);
-        	if(bot!=null)
-        	{
-        		{
-        			Graphics g	= buffer.getGraphics();
-	        		g.setColor(Color.MAGENTA);
-	        		g.fillRect(botX * BOT_WIDTH, botY * BOT_HEIGHT, BOT_WIDTH, BOT_HEIGHT);
-//                    g.setColor(Color.BLACK);
-  //                  g.drawRect(botX * 4, botY * 4, 4, 4);
-	                paintPanel.repaint();
-	        	}
-        		StringBuilder buffer	= new StringBuilder();
-        		buffer.append("<html>");
-        		buffer.append("<p>Многоклеточный: ");
-        		switch(bot.isMulti())
-        		{
-        			case 0:// - нет,
-        				buffer.append("нет</p>");
-        				break;
-        			case 1:// - есть MPREV,
-        				buffer.append("есть MPREV</p>");
-        				break;
-        			case 2:// - есть MNEXT,
-        				buffer.append("есть MNEXT</p>");
-        				break;
-        			case 3:// есть MPREV и MNEXT
-        				buffer.append("есть MPREV и MNEXT</p>");
-        				break;
-        		}
-        		buffer.append("<p>c_blue="+bot.c_blue);
-        		buffer.append("<p>c_green="+bot.c_green);
-        		buffer.append("<p>c_red="+bot.c_red);
-        		buffer.append("<p>direction="+bot.direction);
-        		buffer.append("<p>health="+bot.health);
-        		buffer.append("<p>mineral="+bot.mineral);
-        		
-        		
-        	    //buf.append("");
-       	    
-        	    IBotGene cont;
-                for (int i = 0; i < Bot.MIND_SIZE; i++)
-                {//15
-                    int command = bot.mind[i];  // текущая команда
-                    
-                    // Получаем обработчика команды
-                    cont	= Bot.geneController[command];
-                    if(cont!=null)// если обработчик такой команды назначен
-                    {
-                    	buffer.append("<p>");
-                    	buffer.append(String.valueOf(i));
-                    	buffer.append("&nbsp;");
-                    	buffer.append(cont.getDescription(bot, i));
-                    	buffer.append("</p>");
-                    }
-                }
-        	    
-        	    buffer.append("</html>");
-	        	JComponent component = (JComponent)e.getSource();
-	        	//System.out.println(bot);
-	        	paintPanel.setToolTipText(buffer.toString());
-	            MouseEvent phantom = new MouseEvent(
-	                    component,
-	                    MouseEvent.MOUSE_MOVED,
-	                    System.currentTimeMillis()-2000,
-	                    0,
-	                    x,
-	                    y,
-	                    0,
-	                    false);
-	
-	            ToolTipManager.sharedInstance().mouseMoved(phantom);
-        	}
-        
-        }
-
-        public void mouseEntered(MouseEvent e) {}
-
-        public void mouseExited(MouseEvent e) {}
-
-        public void mousePressed(MouseEvent e) {}
-
-        public void mouseReleased(MouseEvent e) {}
-   }
 
 	public void setRenderer(IRenderer view)
 	{
