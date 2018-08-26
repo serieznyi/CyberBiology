@@ -64,7 +64,8 @@ public class MainWindow extends JFrame implements IWindow
 
     private ProjectProperties properties;
 
-    public MainWindow() {
+    public MainWindow()
+    {
     	window	= this;
 		properties	= new ProjectProperties("properties.xml");
 
@@ -257,7 +258,8 @@ public class MainWindow extends JFrame implements IWindow
 		this.renderer = view;
 	}
 
-    public void paint() {
+    public void paint()
+    {
     	buffer = this.renderer.render(world, this.paintPanel);
         generationLabel.setText(" Generation: " + String.valueOf(world.generation));
         populationLabel.setText(" Population: " + String.valueOf(world.population));
@@ -273,7 +275,8 @@ public class MainWindow extends JFrame implements IWindow
         this.paintPanel.repaint();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
     	MainWindow.window = new MainWindow();
     }
 

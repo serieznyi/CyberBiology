@@ -1,8 +1,5 @@
 package cyberbiology;
 
-import java.io.File;
-
-import cyberbiology.record.v0.PlaybackManager;
 import cyberbiology.record.v0.RecordManager;
 import cyberbiology.prototype.IWindow;
 import cyberbiology.prototype.IWorld;
@@ -13,7 +10,6 @@ public class World implements IWorld
 {
 	public World world;
 	public IWindow window;
-	PlaybackManager playback;
 	IRecordManager recorder;
 	public static final int BOTW = 4;
 	public static final int BOTH = 4;
@@ -42,7 +38,6 @@ public class World implements IWorld
 		this.setSize(width, height);
 	}
 
-	@Override
 	public void setSize(int width, int height)
 	{
 		this.width = width;
@@ -50,7 +45,6 @@ public class World implements IWorld
 		this.matrix = new Bot[width][height];
 	}
 
-	@Override
 	public void addBot(Bot bot)
 	{
 		this.matrix[bot.x][bot.y] = bot;
@@ -144,6 +138,7 @@ public class World implements IWorld
 
 		return;
 	}
+
 	public void restoreLinks()
 	{
 		for (int y = 0; y < height; y++)
@@ -168,6 +163,7 @@ public class World implements IWorld
 			}
 		}
 	}
+
 	public boolean isStarted()
 	{
 		return this.thread != null;
@@ -203,18 +199,11 @@ public class World implements IWorld
 		return this.recorder.stopRecording();
 	}
 
-	public Bot getBot(int botX, int botY)
-	{
-		return this.matrix[botX][botY];
-	}
-
-	@Override
 	public int getWidth()
 	{
 		return width;
 	}
 
-	@Override
 	public int getHeight()
 	{
 		return height;
@@ -224,23 +213,14 @@ public class World implements IWorld
 	{
 		return this.recorder.haveRecord();
 	}
-	/*
-	public void deleteRecord()
-	{
-		this.recorder.deleteRecord();
-	}*/
 
 	public void makeSnapShot()
 	{
 		this.recorder.makeSnapShot();
 	}
-	@Override
+
 	public Bot[][] getWorldArray()
 	{
 		return  this.matrix;
-	}
-	public void openFile(File file)
-	{
-		playback = new PlaybackManager(this, file);
 	}
 }
