@@ -373,29 +373,6 @@ public class Bot implements IBot
     }
 
     //жжжжжжжжжжжжжжжжжжжхжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжж
-    //===========   окружен ли бот          ==========
-    // ---  in - бот                 ------------
-    //===== out  1-окружен  2-нет           ===
-    /**
-     * окружен ли бот 
-     * @param bot
-     * @return 1-окружен  2-нет
-     */
-    int fullAroud(Bot bot) {
-        for (int i = 0; i < 8; i++) {
-            int xt = xFromVektorR(bot, i);
-            int yt = yFromVektorR(bot, i);
-            if ((yt >= 0) && (yt < world.height)) {
-                if (world.matrix[xt][yt] == null) {
-                    return 2;
-                }
-            }
-        }
-        return 1;
-    }
-
-
-    //жжжжжжжжжжжжжжжжжжжхжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжж
     //==== ищет свободные ячейки вокруг бота ============
     //==== начинает спереди и дальше по      ============
     //==== кругу через низ    ( world )      ============
@@ -409,10 +386,10 @@ public class Bot implements IBot
      */
     int findEmptyDirection(Bot bot) {
         for (int i = 0; i < 8; i++) {
-            int xt = xFromVektorR(bot, i);
-            int yt = yFromVektorR(bot, i);
-            if ((yt >= 0) && (yt < world.height)) {
-                if (world.matrix[xt][yt] == null) {
+            int xt = this.xFromVektorR(bot, i);
+            int yt = this.yFromVektorR(bot, i);
+            if ((yt >= 0) && (yt < this.world.height)) {
+                if (this.world.matrix[xt][yt] == null) {
                     return i;
                 }
             }
@@ -525,8 +502,8 @@ public class Bot implements IBot
      * @param yt новые координаты y
      */
     void moveBot(Bot bot, int xt, int yt) {
-        world.matrix[xt][yt] = bot;
-        world.matrix[bot.x][bot.y] = null;
+        this.world.matrix[xt][yt] = bot;
+        this.world.matrix[bot.x][bot.y] = null;
         bot.x = xt;
         bot.y = yt;
     }
@@ -1200,11 +1177,28 @@ public class Bot implements IBot
 	{
 		this.botMulti(this);
 	}
-	@Override
-	public int fullAround()
-	{
-		return fullAroud(this);
-	}
+
+    //жжжжжжжжжжжжжжжжжжжхжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжж
+    //===========   окружен ли бот          ==========
+    // ---  in - бот                 ------------
+    //===== out  1-окружен  2-нет           ===
+    /**
+     * окружен ли бот
+     * @return 1-окружен  2-нет
+     */
+    public int fullAround() {
+        for (int i = 0; i < 8; i++) {
+            int xt = xFromVektorR(this, i);
+            int yt = yFromVektorR(this, i);
+            if ((yt >= 0) && (yt < world.height)) {
+                if (world.matrix[xt][yt] == null) {
+                    return 2;
+                }
+            }
+        }
+        return 1;
+    }
+
 	@Override
 	public int isHealthGrow()
 	{

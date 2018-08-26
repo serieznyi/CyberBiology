@@ -8,32 +8,29 @@ import cyberbiology.util.ProjectProperties;
 
 public class World implements IWorld
 {
-	public World world;
-	public IWindow window;
-	IRecordManager recorder;
-	public static final int BOTW = 4;
-	public static final int BOTH = 4;
+	public static final int BOT_WIDTH = 4;
+	public static final int BOT_HEIGHT = 4;
+
 	public int width;
 	public int height;
+
+	private IWindow window;
+	public IRecordManager recorder;
 	public Bot[][] matrix; // Матрица мира
 	public int generation;
 	public int population;
 	public int organic;
-	boolean started;
-	Worker thread;
-
-	public World(IWindow win)
-	{
-		window = win;
-		population = 0;
-		generation = 0;
-		organic = 0;
-		recorder = new RecordManager(this);
-	}
+	private boolean started;
+	private Worker thread;
 
 	public World(IWindow win, int width, int height)
 	{
-		this(win);
+        this.window = win;
+        this.population = 0;
+        // TODO мне кжется это итерация, а не поколение. Поколение увеличивается после рождения нового бота
+        this.generation = 0;
+        this.organic = 0;
+        this.recorder = new RecordManager(this);
 		this.setSize(width, height);
 	}
 
