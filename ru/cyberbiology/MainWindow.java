@@ -270,8 +270,8 @@ public class MainWindow extends JFrame implements IWindow
         long memory = runtime.totalMemory() - runtime.freeMemory();
         this.memoryLabel.setText(" Memory MB: " + String.valueOf(memory/(1024L * 1024L)));
         
-        this.frameSavedCounterLabel.setText(" Saved frames: " + String.valueOf(world.world.recorder.getFrameSavedCounter()));
-        this.frameSkipSizeLabel.setText(" Skip frames: " + String.valueOf(world.world.recorder.getFrameSkipSize()));
+        this.frameSavedCounterLabel.setText(" Saved frames: " + String.valueOf(world.recorder.getFrameSavedCounter()));
+        this.frameSkipSizeLabel.setText(" Skip frames: " + String.valueOf(world.recorder.getFrameSkipSize()));
         this.paintPanel.repaint();
     }
 

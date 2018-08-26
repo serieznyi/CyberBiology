@@ -24,7 +24,6 @@ public class World implements IWorld
 
 	public World(IWindow win)
 	{
-		world = this;
 		window = win;
 		population = 0;
 		generation = 0;
