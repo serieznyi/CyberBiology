@@ -13,24 +13,20 @@ public class World implements IWorld
 {
 	public World world;
 	public IWindow window;
-	
 	PlaybackManager playback;
 	IRecordManager recorder;
-
 	public static final int BOTW = 4;
 	public static final int BOTH = 4;
-
 	public int width;
 	public int height;
-
 	public Bot[][] matrix; // Матрица мира
 	public int generation;
 	public int population;
 	public int organic;
-
 	boolean started;
 	Worker thread;
-	protected World(IWindow win)
+
+	public World(IWindow win)
 	{
 		world = this;
 		window = win;
@@ -39,6 +35,7 @@ public class World implements IWorld
 		organic = 0;
 		recorder = new RecordManager(this);
 	}
+
 	public World(IWindow win, int width, int height)
 	{
 		this(win);
@@ -63,11 +60,12 @@ public class World implements IWorld
 	{
 		window.paint();
 	}
-	@Override
+
 	public ProjectProperties getProperties()
 	{
 		return window.getProperties();
 	}
+
 	class Worker extends Thread
 	{
 		public void run()
@@ -110,7 +108,9 @@ public class World implements IWorld
 				}
 				// sleep(); // пауза между ходами, если надо уменьшить скорость
 			}
+
 			paint();// если запаузили рисуем актуальную картинку
+
 			started = false;// Закончили работу
 		}
 	}
@@ -168,14 +168,14 @@ public class World implements IWorld
 			}
 		}
 	}
-	public boolean started()
+	public boolean isStarted()
 	{
 		return this.thread != null;
 	}
 
 	public void start()
 	{
-		if (!this.started())
+		if (!this.isStarted())
 		{
 			this.thread = new Worker();
 			this.thread.start();

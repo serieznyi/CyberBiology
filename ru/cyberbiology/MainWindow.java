@@ -133,21 +133,19 @@ public class MainWindow extends JFrame implements IWindow
         runItem = new JMenuItem("Запустить");
         fileMenu.add(runItem);
         runItem.addActionListener(e -> {
-            if(world==null)
-            {
-                int width = paintPanel.getWidth()/ BOT_WIDTH;// Ширина доступной части экрана для рисования карты
-                int height = paintPanel.getHeight()/ BOT_HEIGHT;// Боты 4 пикселя?
-                world = new World(window,width,height);
+            if(world==null) {
+                int width = paintPanel.getWidth() / BOT_WIDTH;
+                int height = paintPanel.getHeight() / BOT_HEIGHT;
+                world = new World(window, width, height);
                 world.generateAdam();
                 paint();
             }
-            if(!world.started())
-            {
+
+            if(!world.isStarted()) {
                 world.start();//Запускаем его
                 runItem.setText("Пауза");
 
-            }else
-            {
+            } else {
                 world.stop();
                 runItem.setText("Продолжить");
                 snapShotItem.setEnabled(true);
@@ -259,7 +257,7 @@ public class MainWindow extends JFrame implements IWindow
 	class CustomListener implements MouseListener {
     	 
         public void mouseClicked(MouseEvent e) {
-        	if(world.started()) return;//Если идет обсчет не суетимся, выводить ничего не надо.
+        	if(world.isStarted()) return;//Если идет обсчет не суетимся, выводить ничего не надо.
         	
         	Point p	= e.getPoint();
         	int x	= (int) p.getX();
@@ -277,30 +275,30 @@ public class MainWindow extends JFrame implements IWindow
   //                  g.drawRect(botX * 4, botY * 4, 4, 4);
 	                paintPanel.repaint();
 	        	}
-        		StringBuilder buf	= new StringBuilder();
-        		buf.append("<html>");
-        		buf.append("<p>Многоклеточный: ");
+        		StringBuilder buffer	= new StringBuilder();
+        		buffer.append("<html>");
+        		buffer.append("<p>Многоклеточный: ");
         		switch(bot.isMulti())
         		{
         			case 0:// - нет,
-        				buf.append("нет</p>");
+        				buffer.append("нет</p>");
         				break;
         			case 1:// - есть MPREV,
-        				buf.append("есть MPREV</p>");
+        				buffer.append("есть MPREV</p>");
         				break;
         			case 2:// - есть MNEXT,
-        				buf.append("есть MNEXT</p>");
+        				buffer.append("есть MNEXT</p>");
         				break;
         			case 3:// есть MPREV и MNEXT
-        				buf.append("есть MPREV и MNEXT</p>");
+        				buffer.append("есть MPREV и MNEXT</p>");
         				break;
         		}
-        		buf.append("<p>c_blue="+bot.c_blue);
-        		buf.append("<p>c_green="+bot.c_green);
-        		buf.append("<p>c_red="+bot.c_red);
-        		buf.append("<p>direction="+bot.direction);
-        		buf.append("<p>health="+bot.health);
-        		buf.append("<p>mineral="+bot.mineral);
+        		buffer.append("<p>c_blue="+bot.c_blue);
+        		buffer.append("<p>c_green="+bot.c_green);
+        		buffer.append("<p>c_red="+bot.c_red);
+        		buffer.append("<p>direction="+bot.direction);
+        		buffer.append("<p>health="+bot.health);
+        		buffer.append("<p>mineral="+bot.mineral);
         		
         		
         	    //buf.append("");
@@ -314,18 +312,18 @@ public class MainWindow extends JFrame implements IWindow
                     cont	= Bot.geneController[command];
                     if(cont!=null)// если обработчик такой команды назначен
                     {
-                    	buf.append("<p>");
-                    	buf.append(String.valueOf(i));
-                    	buf.append("&nbsp;");
-                    	buf.append(cont.getDescription(bot, i));
-                    	buf.append("</p>");
+                    	buffer.append("<p>");
+                    	buffer.append(String.valueOf(i));
+                    	buffer.append("&nbsp;");
+                    	buffer.append(cont.getDescription(bot, i));
+                    	buffer.append("</p>");
                     }
                 }
         	    
-        	    buf.append("</html>");
+        	    buffer.append("</html>");
 	        	JComponent component = (JComponent)e.getSource();
 	        	//System.out.println(bot);
-	        	paintPanel.setToolTipText(buf.toString());
+	        	paintPanel.setToolTipText(buffer.toString());
 	            MouseEvent phantom = new MouseEvent(
 	                    component,
 	                    MouseEvent.MOUSE_MOVED,
