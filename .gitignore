@@ -2,3 +2,5 @@
 /.idea
 /properties.xml
 /build/*
+/.gradle
+/gradle
