@@ -1,4 +1,4 @@
-package cyberbiology.record.v0;
+package cyberbiology.v0;
 
 import java.io.DataOutputStream;
 import java.io.File;

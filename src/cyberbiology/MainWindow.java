@@ -1,7 +1,6 @@
 package cyberbiology;
 
 import cyberbiology.prototype.IWindow;
-import cyberbiology.prototype.gene.IBotGene;
 import cyberbiology.prototype.view.IRenderer;
 import cyberbiology.ui.PropertyDialog;
 import cyberbiology.util.ProjectProperties;
@@ -10,16 +9,12 @@ import cyberbiology.view.MultiCellRenderer;
 
 import javax.swing.*;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.Toolkit;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class MainWindow extends JFrame implements IWindow
 {

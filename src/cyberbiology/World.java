@@ -1,6 +1,6 @@
 package cyberbiology;
 
-import cyberbiology.record.v0.RecordManager;
+import cyberbiology.v0.RecordManager;
 import cyberbiology.prototype.IWindow;
 import cyberbiology.prototype.IWorld;
 import cyberbiology.prototype.record.IRecordManager;
