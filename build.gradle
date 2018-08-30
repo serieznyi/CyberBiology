@@ -19,7 +19,9 @@ targetCompatibility = '1.8'
 version = '1.0.0'
 
 // Define the main class for the application
-mainClassName = 'cyberbiology.MainWindow'
+mainClassName = 'org.cyberbiology.App'
+
+group 'org.cyberbiology'
 
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.
@@ -39,7 +41,7 @@ repositories {
 sourceSets {
     main {
         java {
-            srcDir 'src/cyberbiology'
+            srcDir 'src/main/java'
         }
     }
 }
