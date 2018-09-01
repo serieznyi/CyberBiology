@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="794.0" prefWidth="1294.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.cyberbiology.controller.PrimaryController">
+   <bottom>
+      <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <items>
+            <Label fx:id="labelGeneration" text="Generation: 0" />
+            <Label fx:id="labelPopulation" text="Population: 0" />
+            <Label fx:id="labelOrganic" text="Organic: 0" />
+        </items>
+      </ToolBar>
+   </bottom>
+   <center>
+      <Pane fx:id="mainPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+   <top>
+        <MenuBar BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem fx:id="menuButtonRun" mnemonicParsing="false" onAction="#startApp" text="Run" />
+                        <MenuItem fx:id="menuButtonExit" mnemonicParsing="false" onAction="#stopApp" text="Exit" />
+                        <MenuItem fx:id="menuButtonSetting" mnemonicParsing="false" onAction="#showSettings" text="Settings" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+   </top>
+</BorderPane>
