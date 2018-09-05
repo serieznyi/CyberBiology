@@ -13,6 +13,7 @@ public class ProjectProperties extends Properties
 	{
 		this.propertiesFile = propertiesFile;
 
+		// TODO позже убрать
 		this.load();
 	}
 
@@ -36,7 +37,7 @@ public class ProjectProperties extends Properties
     	return this.getProperty("FileDirectory");
 	}
 
-	private void load()
+	public void load()
 	{
 		try {
 			this.loadFromXML(new FileInputStream(this.propertiesFile));
