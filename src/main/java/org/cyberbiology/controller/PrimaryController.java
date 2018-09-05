@@ -1,14 +1,13 @@
 package org.cyberbiology.controller;
 
-import cyberbiology.World;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Dimension2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
 import org.cyberbiology.App;
+import org.cyberbiology.domain.Size;
 
 public class PrimaryController {
     public MenuItem menuButtonRun;
@@ -28,8 +27,8 @@ public class PrimaryController {
         this.canvas.setWidth(this.mainPane.getWidth());
     }
 
-    public Dimension2D getMainPaneSize() {
-        return new Dimension2D(
+    public Size getMainPaneSize() {
+        return new Size(
                 this.mainPane.getWidth(),
                 this.mainPane.getHeight()
         );
@@ -40,6 +39,8 @@ public class PrimaryController {
     }
 
     public void startApp(ActionEvent actionEvent) {
+//        this.app.getWorld().start();
+
         // TODO привести к интерфейсу или избавиться от него
 //        this.app.getRenderer().render((World) this.app.getWorld(), this.canvas);
     }

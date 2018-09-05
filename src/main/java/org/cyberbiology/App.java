@@ -2,17 +2,17 @@ package org.cyberbiology;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Dimension2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import cyberbiology.util.ProjectProperties;
-import cyberbiology.World;
 import org.cyberbiology.controller.PrimaryController;
 import java.io.IOException;
-import cyberbiology.prototype.IWorld;
+import org.cyberbiology.domain.Size;
+import cyberbiology.World;
 import cyberbiology.prototype.view.IRenderer;
+import cyberbiology.prototype.IWorld;
 
 public class App extends Application {
     private static final int BOT_WIDTH = 4;
@@ -44,7 +44,7 @@ public class App extends Application {
 
         PrimaryController primaryController = this.primaryFXMLLoader.getController();
 
-        Dimension2D mainPaneSize = primaryController.getMainPaneSize();
+        Size mainPaneSize = primaryController.getMainPaneSize();
 
 //        this.world = new World(
 //                (int) mainPaneSize.getWidth() / BOT_WIDTH,
