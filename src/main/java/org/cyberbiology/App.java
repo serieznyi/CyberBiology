@@ -2,19 +2,29 @@ package org.cyberbiology;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Dimension2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import cyberbiology.util.ProjectProperties;
-
+import cyberbiology.World;
+import org.cyberbiology.controller.PrimaryController;
 import java.io.IOException;
+import cyberbiology.prototype.IWorld;
+import cyberbiology.prototype.view.IRenderer;
 
 public class App extends Application {
+    private static final int BOT_WIDTH = 4;
+    private static final int BOT_HEIGHT = 4;
+
     private static App self;
     private Stage primaryStage;
     private Stage settingsDialogStage;
     private ProjectProperties properties;
+    private World world;
+    private FXMLLoader primaryFXMLLoader;
+    private IRenderer renderer;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -22,14 +32,30 @@ public class App extends Application {
 
         this.primaryStage = primaryStage;
 
+        this.primaryFXMLLoader = new FXMLLoader(getClass().getResource("../../fxml/primary_window.fxml"));
+
         this.properties	= new ProjectProperties("properties.xml");
+
+        this.properties.load();
 
         this.createSettingsDialogStage();
 
         this.configurePrimaryStage();
 
-        this.primaryStage.show();
+        PrimaryController primaryController = this.primaryFXMLLoader.getController();
 
+        Dimension2D mainPaneSize = primaryController.getMainPaneSize();
+
+//        this.world = new World(
+//                (int) mainPaneSize.getWidth() / BOT_WIDTH,
+//                (int) mainPaneSize.getHeight() / BOT_HEIGHT
+//        );
+
+        this.primaryStage.show();
+    }
+
+    public IWorld getWorld() {
+        return this.world;
     }
 
     public static App getSelf() {
@@ -37,7 +63,8 @@ public class App extends Application {
     }
 
     private void configurePrimaryStage() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../../fxml/primary_window.fxml"));
+        Parent root = this.primaryFXMLLoader.load();
+
         this.primaryStage.setTitle("CyberBiologyTest 1.0.0");
         this.primaryStage.setScene(new Scene(root));
         this.primaryStage.show();
@@ -68,5 +95,9 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public IRenderer getRenderer() {
+        return renderer;
     }
 }
