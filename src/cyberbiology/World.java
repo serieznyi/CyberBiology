@@ -14,7 +14,6 @@ public class World implements IWorld
 	public int width;
 	public int height;
 
-	private IWindow window;
 	public IRecordManager recorder;
 	public Bot[][] matrix; // Матрица мира
 	public int generation;
@@ -23,9 +22,8 @@ public class World implements IWorld
 	private boolean started;
 	private Worker thread;
 
-	public World(IWindow win, int width, int height)
+	public World(int width, int height)
 	{
-        this.window = win;
         this.population = 0;
         // TODO мне кжется это итерация, а не поколение. Поколение увеличивается после рождения нового бота
         this.generation = 0;
@@ -44,16 +42,6 @@ public class World implements IWorld
 	public void addBot(Bot bot)
 	{
 		this.matrix[bot.x][bot.y] = bot;
-	}
-
-	public void paint()
-	{
-		window.paint();
-	}
-
-	public ProjectProperties getProperties()
-	{
-		return window.getProperties();
 	}
 
 	class Worker extends Thread
