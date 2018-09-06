@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 import org.cyberbiology.App;
-import cyberbiology.util.ProjectProperties;
+import org.cyberbiology_old.util.ProjectProperties;
 
 import java.io.File;
 

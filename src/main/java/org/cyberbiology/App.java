@@ -6,13 +6,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import cyberbiology.util.ProjectProperties;
+import org.cyberbiology_old.util.ProjectProperties;
+import org.cyberbiology_old.World;
 import org.cyberbiology.controller.PrimaryController;
 import java.io.IOException;
 import org.cyberbiology.domain.Size;
-import cyberbiology.World;
-import cyberbiology.prototype.view.IRenderer;
-import cyberbiology.prototype.IWorld;
+import org.cyberbiology_old.World;
+import org.cyberbiology_old.prototype.view.IRenderer;
+import org.cyberbiology_old.prototype.IWorld;
 
 public class App extends Application {
     private static final int BOT_WIDTH = 4;
