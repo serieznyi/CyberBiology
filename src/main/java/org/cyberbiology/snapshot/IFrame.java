@@ -1,4 +1,4 @@
-package org.cyberbiology.prototype.record;
+package org.cyberbiology.snapshot;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
