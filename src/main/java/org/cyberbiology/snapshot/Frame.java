@@ -18,7 +18,7 @@ class Frame implements IFrame {
         this.list = new ArrayList<Item>();
     }
 
-    public int save(DataOutputStream fileout) throws IOException
+    public void save(DataOutputStream fileout) throws IOException
     {
         int length	= list.size()* BOT_DATA_LENGTH;
         fileout.writeInt(length);
@@ -26,8 +26,6 @@ class Frame implements IFrame {
         for (Item aList : list) {
             aList.save(fileout);
         }
-
-        return length;
     }
 
     public void addBot(IBot bot, int x, int y)
