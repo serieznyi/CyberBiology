@@ -159,14 +159,6 @@ public class MainWindow extends JFrame implements IWindow
         fileMenu.add(recordItem);
         
         recordItem.addActionListener(e -> {
-            if(world==null)
-            {
-                int width = paintPanel.getWidth() / BOT_WIDTH;// Ширина доступной части экрана для рисования карты
-                int height = paintPanel.getHeight() / BOT_HEIGHT;// Боты 4 пикселя?
-                world = new World(window,width,height);
-                world.generateAdam();
-                paint();
-            }
             if(!world.isRecording())
             {
                 world.startRecording();
