@@ -1,6 +1,7 @@
 package org.cyberbiology;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -47,10 +48,10 @@ public class App extends Application {
 
         Size mainPaneSize = primaryController.getMainPaneSize();
 
-//        this.world = new World(
-//                (int) mainPaneSize.getWidth() / BOT_WIDTH,
-//                (int) mainPaneSize.getHeight() / BOT_HEIGHT
-//        );
+        this.world = new World(
+                (int) mainPaneSize.getWidth() / BOT_WIDTH,
+                (int) mainPaneSize.getHeight() / BOT_HEIGHT
+        );
 
         this.primaryStage.show();
     }

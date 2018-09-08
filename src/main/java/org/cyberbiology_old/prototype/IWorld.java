@@ -8,6 +8,8 @@ public interface IWorld
 
 	int getHeight();
 
+	public void makeStep();
+
 	void setSize(int width, int height);
 
 	void addBot(Bot bot);

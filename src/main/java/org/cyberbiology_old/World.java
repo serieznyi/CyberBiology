@@ -1,6 +1,5 @@
 package org.cyberbiology_old;
 
-import org.cyberbiology_old.prototype.IWindow;
 import org.cyberbiology_old.prototype.IWorld;
 
 public class World implements IWorld
@@ -41,7 +40,7 @@ public class World implements IWorld
 		this.matrix[bot.x][bot.y] = bot;
 	}
 
-	void makeStep() {
+	public void makeStep() {
 		if (this.isMatrixEmpty()) {
 			this.generateAdam();
 		}
