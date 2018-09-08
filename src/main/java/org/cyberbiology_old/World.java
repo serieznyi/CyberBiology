@@ -16,7 +16,7 @@ public class World implements IWorld
 	public int population;
 	public int organic;
 
-	public World(IWindow win, int width, int height)
+	public World(int width, int height)
 	{
         this.population = 0;
         // TODO мне кжется это итерация, а не поколение. Поколение увеличивается после рождения нового бота

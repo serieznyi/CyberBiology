@@ -117,7 +117,7 @@ public class MainWindow extends JFrame implements IWindow
             if(world==null) {
                 int width = paintPanel.getWidth() / BOT_WIDTH;
                 int height = paintPanel.getHeight() / BOT_HEIGHT;
-                world = new World(window, width, height);
+                world = new World(width, height);
             }
 
             if (null == this.thread) {
