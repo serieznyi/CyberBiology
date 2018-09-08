@@ -26,6 +26,27 @@ public class PrimaryController {
     private App app;
     private Thread thread;
 
+    public void actionStopApp(ActionEvent actionEvent) throws Exception {
+        this.app.getPrimaryStage().close();
+    }
+
+    public void actionStartApp(ActionEvent actionEvent) {
+        if (null == this.thread) {
+            this.thread = this.createThread();
+            this.thread.start();
+            this.menuButtonRun.setText("Пауза");
+        } else {
+            this.thread.interrupt();
+            this.thread = null;
+            this.menuButtonRun.setText("Продолжить");
+//            this.menuButtonSnapshot.setEnabled(true);
+        }
+    }
+
+    public void actionShowSettings(ActionEvent actionEvent) {
+        this.app.getSettingsDialogStage().showAndWait();
+    }
+
     @FXML
     public void initialize() {
         this.app = App.getSelf();
@@ -38,23 +59,6 @@ public class PrimaryController {
                 this.mainPane.getWidth(),
                 this.mainPane.getHeight()
         );
-    }
-
-    public void stopApp(ActionEvent actionEvent) throws Exception {
-        this.app.getPrimaryStage().close();
-    }
-
-    public void startApp(ActionEvent actionEvent) {
-        if (null == this.thread) {
-            this.thread = this.createThread();
-            this.thread.start();
-            this.menuButtonRun.setText("Пауза");
-        } else {
-            this.thread.interrupt();
-            this.thread = null;
-            this.menuButtonRun.setText("Продолжить");
-//            this.menuButtonSnapshot.setEnabled(true);
-        }
     }
 
     private LoopedThread createThread() {
@@ -79,9 +83,5 @@ public class PrimaryController {
 //            this.paintPanel.repaint();
             });
         });
-    }
-
-    public void showSettings(ActionEvent actionEvent) {
-        this.app.getSettingsDialogStage().showAndWait();
     }
 }
