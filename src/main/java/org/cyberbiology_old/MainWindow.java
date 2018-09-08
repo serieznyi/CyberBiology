@@ -10,13 +10,7 @@ import org.cyberbiology_old.view.BasicRenderer;
 import org.cyberbiology_old.view.MultiCellRenderer;
 
 import javax.swing.*;
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Toolkit;
+import java.awt.*;
 
 public class MainWindow extends JFrame implements IWindow
 {
@@ -49,6 +43,8 @@ public class MainWindow extends JFrame implements IWindow
 
     private IRenderer renderer;
 
+    private LoopedThread thread;
+
     private ISnapShotManager snapShotManager;
 
     final private IRenderer[] availableRenderers = new IRenderer[]
@@ -64,7 +60,7 @@ public class MainWindow extends JFrame implements IWindow
     	window	= this;
 		properties	= new ProjectProperties("properties.xml");
 
-		this.snapShotManager = new SnapShotManager();
+		this.snapShotManager = new SnapShotManager(properties.getOutputDirectory());
 
 		this.propertyDialog = new PropertyDialog(properties, window);
 
@@ -109,7 +105,7 @@ public class MainWindow extends JFrame implements IWindow
         memoryLabel.setPreferredSize(new Dimension(140, 18));
         memoryLabel.setBorder(BorderFactory.createLoweredBevelBorder());
         statusPanel.add(memoryLabel);
-
+        
         JMenuBar menuBar = new JMenuBar();
         
         JMenu fileMenu = new JMenu("File");
@@ -121,28 +117,26 @@ public class MainWindow extends JFrame implements IWindow
                 int width = paintPanel.getWidth() / BOT_WIDTH;
                 int height = paintPanel.getHeight() / BOT_HEIGHT;
                 world = new World(window, width, height);
-                paint();
             }
 
-            if(!world.isStarted()) {
-                world.start();//Запускаем его
+            if (null == this.thread) {
+                this.thread = this.createThread();
+                this.thread.start();
                 runItem.setText("Пауза");
-
             } else {
-                world.stop();
+                this.thread.interrupt();
+                this.thread = null;
                 runItem.setText("Продолжить");
                 snapShotItem.setEnabled(true);
             }
-
         });
         snapShotItem = new JMenuItem("Сохранить состояние мира");
         fileMenu.add(snapShotItem);
         snapShotItem.setEnabled(false);
         snapShotItem.addActionListener(e -> {
-            world.stop();
             this.snapShotManager.makeSnapShot(world);
         });
-
+        
         fileMenu.addSeparator();
         
         JMenuItem optionItem = new JMenuItem("Настройки");
@@ -178,38 +172,40 @@ public class MainWindow extends JFrame implements IWindow
         this.setVisible(true);
         this.setExtendedState(MAXIMIZED_BOTH);
         
-        String tmp = this.properties.getFileDirectory();
+        String tmp = this.properties.getOutputDirectory();
         if(tmp==null || tmp.length()==0) {
             this.propertyDialog.show();
         }
     }
 
-	public void setRenderer(IRenderer view)
-	{
-		this.renderer = view;
-	}
+    private LoopedThread createThread() {
+        return new LoopedThread(() -> {
+            world.makeStep();
 
-    public void paint()
+            generationLabel.setText(" Generation: " + String.valueOf(world.getGeneration()));
+            populationLabel.setText(" Population: " + String.valueOf(world.population));
+            organicLabel.setText(" Organic: " + String.valueOf(world.organic));
+
+            Runtime runtime = Runtime.getRuntime();
+            long memory = runtime.totalMemory() - runtime.freeMemory();
+            this.memoryLabel.setText(" Memory MB: " + String.valueOf(memory/(1024L * 1024L)));
+
+            if (world.getGeneration() % 10 == 0) {
+                buffer = renderer.render(world, paintPanel);
+            }
+
+            this.paintPanel.repaint();
+
+        });
+    }
+
+    public void setRenderer(IRenderer view)
     {
-    	buffer = this.renderer.render(world, this.paintPanel);
-        generationLabel.setText(" Generation: " + String.valueOf(world.generation));
-        populationLabel.setText(" Population: " + String.valueOf(world.population));
-        organicLabel.setText(" Organic: " + String.valueOf(world.organic));
-
-        Runtime runtime = Runtime.getRuntime();
-        long memory = runtime.totalMemory() - runtime.freeMemory();
-        this.memoryLabel.setText(" Memory MB: " + String.valueOf(memory/(1024L * 1024L)));
-
-        this.paintPanel.repaint();
+        this.renderer = view;
     }
 
     public static void main(String[] args)
     {
     	MainWindow.window = new MainWindow();
-    }
-
-    public ProjectProperties getProperties()
-    {
-    	return this.properties;
     }
 }

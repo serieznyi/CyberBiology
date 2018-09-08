@@ -2,8 +2,6 @@ package org.cyberbiology_old;
 
 import org.cyberbiology_old.prototype.IWindow;
 import org.cyberbiology_old.prototype.IWorld;
-import org.cyberbiology_old.snapshot.ISnapShotManager;
-import org.cyberbiology_old.util.ProjectProperties;
 
 public class World implements IWorld
 {
@@ -13,22 +11,22 @@ public class World implements IWorld
 	public int width;
 	public int height;
 
-	private IWindow window;
 	public Bot[][] matrix; // Матрица мира
 	public int generation;
 	public int population;
 	public int organic;
-	private boolean started;
-	private Worker thread;
 
 	public World(IWindow win, int width, int height)
 	{
-        this.window = win;
         this.population = 0;
         // TODO мне кжется это итерация, а не поколение. Поколение увеличивается после рождения нового бота
         this.generation = 0;
         this.organic = 0;
 		this.setSize(width, height);
+	}
+
+	public int getGeneration() {
+		return  this.generation;
 	}
 
 	public void setSize(int width, int height)
@@ -43,51 +41,28 @@ public class World implements IWorld
 		this.matrix[bot.x][bot.y] = bot;
 	}
 
-	public void paint()
-	{
-		window.paint();
-	}
+	void makeStep() {
+		if (this.isMatrixEmpty()) {
+			this.generateAdam();
+		}
 
-	public ProjectProperties getProperties()
-	{
-		return window.getProperties();
-	}
-
-	class Worker extends Thread
-	{
-		public void run()
+		// обновляем матрицу
+		for (int y = 0; y < height; y++)
 		{
-			started = true;// Флаг работы потока, если установить в false поток
-							// заканчивает работу
-			while (started)
+			for (int x = 0; x < width; x++)
 			{
-
-				// обновляем матрицу
-				for (int y = 0; y < height; y++)
+				if (matrix[x][y] != null)
 				{
-					for (int x = 0; x < width; x++)
+					// if (matrix[x][y].alive == 3)
 					{
-						if (matrix[x][y] != null)
-						{
-							// if (matrix[x][y].alive == 3)
-							{
-								matrix[x][y].step(); // выполняем шаг бота
-							}
-						}
+//						System.out.println(getClass() + " - Process bot [" + x + "][" + y + "]");
+
+						matrix[x][y].step(); // выполняем шаг бота
 					}
 				}
-				generation = generation + 1;
-				if (generation % 10 == 0)
-				{ // отрисовка на экран через каждые ... шагов
-					paint(); // отображаем текущее состояние симуляции на экран
-				}
-				// sleep(); // пауза между ходами, если надо уменьшить скорость
 			}
-
-			paint();// если запаузили рисуем актуальную картинку
-
-			started = false;// Закончили работу
 		}
+		generation = generation + 1;
 	}
 
 	private void generateAdam()
@@ -145,23 +120,6 @@ public class World implements IWorld
 		}
 	}
 
-	public boolean isStarted()
-	{
-		return this.thread != null;
-	}
-
-	public void start()
-	{
-		if (!this.isStarted())
-		{
-			this.thread = new Worker();
-			this.thread.start();
-			if (this.isMatrixEmpty()) {
-				this.generateAdam();
-			}
-		}
-	}
-
 	private boolean isMatrixEmpty() {
 		for (Bot[] matrixLine : this.matrix) {
 			for (Bot bot : matrixLine) {
@@ -172,12 +130,6 @@ public class World implements IWorld
 		}
 
 		return true;
-	}
-
-	public void stop()
-	{
-		started = false;
-		this.thread = null;
 	}
 
 	public int getWidth()

@@ -16,11 +16,11 @@ public class BasicRenderer implements IRenderer
 		return "Базовое";
 	}
 
-    public Image render(World world, JPanel canvas) {
-    	int w = canvas.getWidth();
-    	int h = canvas.getHeight();
+    public Image render(World world, JPanel panel) {
+    	int w = panel.getWidth();
+    	int h = panel.getHeight();
     	//Создаем временный буфер для рисования
-    	Image buf = canvas.createImage(w, h);
+    	Image buf = panel.createImage(w, h);
     	//подеменяем графику на временный буфер
     	Graphics g = buf.getGraphics();
     	

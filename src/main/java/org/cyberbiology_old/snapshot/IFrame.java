@@ -9,6 +9,5 @@ public interface IFrame
 {
 	void addBot(IBot bot, int x, int y);
 
-	int save(DataOutputStream fileout) throws IOException;
-
+	void save(DataOutputStream fileout) throws IOException;
 }

@@ -2,6 +2,7 @@ package org.cyberbiology_old.snapshot;
 
 import org.cyberbiology_old.Bot;
 import org.cyberbiology_old.prototype.IWorld;
+import org.cyberbiology_old.util.ProjectProperties;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -18,7 +19,12 @@ public class SnapShotManager implements ISnapShotManager
 {
 	private static final int VERSION = 0;
 	private static SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy HH.mm.ss");
+	private final String outputDirectory;
 	private IWorld world;
+
+	public SnapShotManager(String outputDirectory) {
+		this.outputDirectory = outputDirectory;
+	}
 
 	/**
 	 * Метод вызывается отдельным потоком 
@@ -30,13 +36,11 @@ public class SnapShotManager implements ISnapShotManager
 
 		try
 		{
-			String dirName	= getWorld().getProperties().getFileDirectory();
-
-			new File(dirName).mkdirs();
+			new File(this.outputDirectory).mkdirs();
 			
 			//Создаем временный файл с данными
 			String fileName = formatter.format(new Date())+"";
-			File file = new File(dirName + fileName + ".frame.cb.zip");
+			File file = new File(this.outputDirectory + fileName + ".frame.cb.zip");
 			ZipOutputStream fileout	= new ZipOutputStream(new FileOutputStream(file));
 			fileout.putNextEntry(new ZipEntry("data"));
 			
