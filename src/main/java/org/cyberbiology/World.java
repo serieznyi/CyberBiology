@@ -1,9 +1,9 @@
 package org.cyberbiology;
 
-import org.cyberbiology.v0.RecordManager;
+import org.cyberbiology.snapshot.SnapShotManager;
 import org.cyberbiology.prototype.IWindow;
 import org.cyberbiology.prototype.IWorld;
-import org.cyberbiology.prototype.record.IRecordManager;
+import org.cyberbiology.snapshot.ISnapShotManager;
 import org.cyberbiology.util.ProjectProperties;
 
 public class World implements IWorld
@@ -15,7 +15,7 @@ public class World implements IWorld
 	public int height;
 
 	private IWindow window;
-	public IRecordManager recorder;
+	public ISnapShotManager snapShotManager;
 	public Bot[][] matrix; // Матрица мира
 	public int generation;
 	public int population;
@@ -30,7 +30,7 @@ public class World implements IWorld
         // TODO мне кжется это итерация, а не поколение. Поколение увеличивается после рождения нового бота
         this.generation = 0;
         this.organic = 0;
-        this.recorder = new RecordManager(this);
+        this.snapShotManager = new SnapShotManager(this);
 		this.setSize(width, height);
 	}
 
@@ -195,7 +195,7 @@ public class World implements IWorld
 
 	public void makeSnapShot()
 	{
-		this.recorder.makeSnapShot();
+		this.snapShotManager.makeSnapShot();
 	}
 
 	public Bot[][] getWorldArray()

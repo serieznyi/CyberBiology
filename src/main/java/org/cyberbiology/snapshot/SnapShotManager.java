@@ -1,8 +1,7 @@
-package org.cyberbiology.v0;
+package org.cyberbiology.snapshot;
 
 import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,14 +17,13 @@ import org.cyberbiology.Bot;
 import org.cyberbiology.prototype.IBot;
 import org.cyberbiology.prototype.IWorld;
 import org.cyberbiology.prototype.record.IFrame;
-import org.cyberbiology.prototype.record.IRecordManager;
 
 /**
 
 * @author Nickolay
 *
 */
-public class RecordManager  implements IRecordManager
+public class SnapShotManager implements ISnapShotManager
 {
 	static final int VERSION	= 0;
 	private static final int BOT_DATA_LENGHT	= 14+Bot.MIND_SIZE;
@@ -36,7 +34,7 @@ public class RecordManager  implements IRecordManager
 	private File file;
 	private ArrayList<Integer> fameSizes;
 	
-	public RecordManager(IWorld world)
+	public SnapShotManager(IWorld world)
 	{
 		this.world = world;
 		this.started = false;
