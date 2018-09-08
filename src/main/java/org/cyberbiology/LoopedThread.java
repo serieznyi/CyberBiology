@@ -3,7 +3,7 @@ package org.cyberbiology;
 public class LoopedThread extends Thread {
     private boolean worked = false;
 
-    LoopedThread(Runnable runnable) {
+    public LoopedThread(Runnable runnable) {
         super(runnable);
     }
 

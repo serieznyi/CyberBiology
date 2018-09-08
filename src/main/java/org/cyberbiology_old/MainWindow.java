@@ -1,5 +1,6 @@
 package org.cyberbiology_old;
 
+import org.cyberbiology.LoopedThread;
 import org.cyberbiology_old.prototype.IWindow;
 import org.cyberbiology_old.prototype.view.IRenderer;
 import org.cyberbiology_old.snapshot.ISnapShotManager;

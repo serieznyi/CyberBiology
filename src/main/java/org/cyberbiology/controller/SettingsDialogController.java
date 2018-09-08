@@ -19,13 +19,13 @@ public class SettingsDialogController {
     @FXML
     public void initialize() {
         ProjectProperties properties = App.getSelf().getProperties();
-        this.outputDirPathField.setText(properties.getFileDirectory());
+        this.outputDirPathField.setText(properties.getOutputDirectory());
     }
 
     public void actionSaveSettings(ActionEvent actionEvent) {
         ProjectProperties properties = App.getSelf().getProperties();
 
-        properties.setFileDirectory(this.outputDirPathField.getText());
+        properties.setOutputDirectory(this.outputDirPathField.getText());
 
         App.getSelf().getSettingsDialogStage().close();
     }

@@ -8,11 +8,5 @@ import org.cyberbiology_old.util.ProjectProperties;
  */
 public interface IWindow
 {
-
-	void paint();
-
 	void setRenderer(IRenderer view);
-
-	ProjectProperties getProperties();
-
 }
