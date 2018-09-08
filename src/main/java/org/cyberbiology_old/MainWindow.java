@@ -2,6 +2,8 @@ package org.cyberbiology_old;
 
 import org.cyberbiology_old.prototype.IWindow;
 import org.cyberbiology_old.prototype.view.IRenderer;
+import org.cyberbiology_old.snapshot.ISnapShotManager;
+import org.cyberbiology_old.snapshot.SnapShotManager;
 import org.cyberbiology_old.ui.PropertyDialog;
 import org.cyberbiology_old.util.ProjectProperties;
 import org.cyberbiology_old.view.BasicRenderer;
@@ -26,16 +28,12 @@ public class MainWindow extends JFrame implements IWindow
     private static World world;
 
     private JMenuItem runItem;
-    private JMenuItem recordItem;
     private JMenuItem snapShotItem;
 
     private final JLabel generationLabel = new JLabel(" Generation: 0 ");
     private final JLabel populationLabel = new JLabel(" Population: 0 ");
     private final JLabel organicLabel = new JLabel(" Organic: 0 ");
-    private final JLabel recorderBufferLabel = new JLabel("");
     private final JLabel memoryLabel = new JLabel("");
-    private final JLabel frameSavedCounterLabel = new JLabel("");
-    private final JLabel frameSkipSizeLabel = new JLabel("");
 
     private PropertyDialog propertyDialog;
 
@@ -51,6 +49,8 @@ public class MainWindow extends JFrame implements IWindow
 
     private IRenderer renderer;
 
+    private ISnapShotManager snapShotManager;
+
     final private IRenderer[] availableRenderers = new IRenderer[]
         {
             new BasicRenderer(),
@@ -63,6 +63,8 @@ public class MainWindow extends JFrame implements IWindow
     {
     	window	= this;
 		properties	= new ProjectProperties("properties.xml");
+
+		this.snapShotManager = new SnapShotManager();
 
 		this.propertyDialog = new PropertyDialog(properties, window);
 
@@ -107,19 +109,7 @@ public class MainWindow extends JFrame implements IWindow
         memoryLabel.setPreferredSize(new Dimension(140, 18));
         memoryLabel.setBorder(BorderFactory.createLoweredBevelBorder());
         statusPanel.add(memoryLabel);
-        
-        recorderBufferLabel.setPreferredSize(new Dimension(140, 18));
-        recorderBufferLabel.setBorder(BorderFactory.createLoweredBevelBorder());
-        statusPanel.add(recorderBufferLabel);
-        
-        frameSavedCounterLabel.setPreferredSize(new Dimension(140, 18));
-        frameSavedCounterLabel.setBorder(BorderFactory.createLoweredBevelBorder());
-        statusPanel.add(frameSavedCounterLabel);
-        
-        frameSkipSizeLabel.setPreferredSize(new Dimension(140, 18));
-        frameSkipSizeLabel.setBorder(BorderFactory.createLoweredBevelBorder());
-        statusPanel.add(frameSkipSizeLabel);
-        
+
         JMenuBar menuBar = new JMenuBar();
         
         JMenu fileMenu = new JMenu("File");
@@ -131,7 +121,6 @@ public class MainWindow extends JFrame implements IWindow
                 int width = paintPanel.getWidth() / BOT_WIDTH;
                 int height = paintPanel.getHeight() / BOT_HEIGHT;
                 world = new World(window, width, height);
-                world.generateAdam();
                 paint();
             }
 
@@ -146,51 +135,12 @@ public class MainWindow extends JFrame implements IWindow
             }
 
         });
-        snapShotItem = new JMenuItem("Сделать снимок");
+        snapShotItem = new JMenuItem("Сохранить состояние мира");
         fileMenu.add(snapShotItem);
         snapShotItem.setEnabled(false);
         snapShotItem.addActionListener(e -> {
-            if(world==null)
-            {
-                int width = paintPanel.getWidth() / BOT_WIDTH;// Ширина доступной части экрана для рисования карты
-                int height = paintPanel.getHeight() / BOT_HEIGHT;// Боты 4 пикселя?
-                world = new World(window,width,height);
-                world.generateAdam();
-                paint();
-            }
             world.stop();
-            runItem.setText("Продолжить");
-            world.makeSnapShot();
-        });
-        
-        recordItem = new JMenuItem("Начать запись");
-        fileMenu.add(recordItem);
-        
-        recordItem.addActionListener(e -> {
-            if(world==null)
-            {
-                int width = paintPanel.getWidth() / BOT_WIDTH;// Ширина доступной части экрана для рисования карты
-                int height = paintPanel.getHeight() / BOT_HEIGHT;// Боты 4 пикселя?
-                world = new World(window,width,height);
-                world.generateAdam();
-                paint();
-            }
-            if(!world.isRecording())
-            {
-                world.startRecording();
-                recordItem.setText("Сохранить запись");
-            }else
-            {
-                recordItem.setText("Начать запись");
-
-                world.stopRecording();
-                if(world.haveRecord())
-                {
-                    //saveItem.setEnabled(true);
-                    //deleteItem.setEnabled(true);
-                    //recordItem.setEnabled(false);
-                }
-            }
+            this.snapShotManager.makeSnapShot(world);
         });
 
         fileMenu.addSeparator();
@@ -205,20 +155,6 @@ public class MainWindow extends JFrame implements IWindow
         fileMenu.add(exitItem);
          
         exitItem.addActionListener(e -> {
-            // Попытка корректно заверишть запись, если она велась
-            // TODO: Не тестировалось!
-            if(world!=null && world.isRecording())
-            {
-                world.stopRecording();
-                try
-                {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e1)
-                {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
-            }
             System.exit(0);
         });
          
@@ -259,14 +195,11 @@ public class MainWindow extends JFrame implements IWindow
         generationLabel.setText(" Generation: " + String.valueOf(world.generation));
         populationLabel.setText(" Population: " + String.valueOf(world.population));
         organicLabel.setText(" Organic: " + String.valueOf(world.organic));
-        recorderBufferLabel.setText(" Buffer: " + String.valueOf(world.recorder.getBufferSize()));
-        
+
         Runtime runtime = Runtime.getRuntime();
         long memory = runtime.totalMemory() - runtime.freeMemory();
         this.memoryLabel.setText(" Memory MB: " + String.valueOf(memory/(1024L * 1024L)));
-        
-        this.frameSavedCounterLabel.setText(" Saved frames: " + String.valueOf(world.recorder.getFrameSavedCounter()));
-        this.frameSkipSizeLabel.setText(" Skip frames: " + String.valueOf(world.recorder.getFrameSkipSize()));
+
         this.paintPanel.repaint();
     }
 
