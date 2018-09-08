@@ -2,6 +2,8 @@ package org.cyberbiology;
 
 import org.cyberbiology.prototype.IWindow;
 import org.cyberbiology.prototype.view.IRenderer;
+import org.cyberbiology.snapshot.ISnapShotManager;
+import org.cyberbiology.snapshot.SnapShotManager;
 import org.cyberbiology.ui.PropertyDialog;
 import org.cyberbiology.util.ProjectProperties;
 import org.cyberbiology.view.BasicRenderer;
@@ -47,6 +49,8 @@ public class MainWindow extends JFrame implements IWindow
 
     private IRenderer renderer;
 
+    private ISnapShotManager snapShotManager;
+
     final private IRenderer[] availableRenderers = new IRenderer[]
         {
             new BasicRenderer(),
@@ -59,6 +63,8 @@ public class MainWindow extends JFrame implements IWindow
     {
     	window	= this;
 		properties	= new ProjectProperties("properties.xml");
+
+		this.snapShotManager = new SnapShotManager();
 
 		this.propertyDialog = new PropertyDialog(properties, window);
 
@@ -135,7 +141,7 @@ public class MainWindow extends JFrame implements IWindow
         snapShotItem.addActionListener(e -> {
             world.stop();
             runItem.setText("Продолжить");
-            world.makeSnapShot();
+            this.snapShotManager.makeSnapShot(world);
         });
         
         fileMenu.addSeparator();

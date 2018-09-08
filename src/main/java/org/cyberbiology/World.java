@@ -1,6 +1,5 @@
 package org.cyberbiology;
 
-import org.cyberbiology.snapshot.SnapShotManager;
 import org.cyberbiology.prototype.IWindow;
 import org.cyberbiology.prototype.IWorld;
 import org.cyberbiology.snapshot.ISnapShotManager;
@@ -15,7 +14,6 @@ public class World implements IWorld
 	public int height;
 
 	private IWindow window;
-	public ISnapShotManager snapShotManager;
 	public Bot[][] matrix; // Матрица мира
 	public int generation;
 	public int population;
@@ -30,7 +28,6 @@ public class World implements IWorld
         // TODO мне кжется это итерация, а не поколение. Поколение увеличивается после рождения нового бота
         this.generation = 0;
         this.organic = 0;
-        this.snapShotManager = new SnapShotManager(this);
 		this.setSize(width, height);
 	}
 
@@ -191,11 +188,6 @@ public class World implements IWorld
 	public int getHeight()
 	{
 		return height;
-	}
-
-	public void makeSnapShot()
-	{
-		this.snapShotManager.makeSnapShot();
 	}
 
 	public Bot[][] getWorldArray()

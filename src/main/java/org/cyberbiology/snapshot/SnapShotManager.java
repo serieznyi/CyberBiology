@@ -25,22 +25,13 @@ import org.cyberbiology.prototype.record.IFrame;
 */
 public class SnapShotManager implements ISnapShotManager
 {
-	static final int VERSION	= 0;
-	private static final int BOT_DATA_LENGHT	= 14+Bot.MIND_SIZE;
+	private static final int VERSION	= 0;
+	private static final int BOT_DATA_LENGTH = 14+Bot.MIND_SIZE;
 	IWorld world;
-
 	private List<IFrame> frames;
-	private boolean started;// флаг о том, что запись заканчивается
 	private File file;
 	private ArrayList<Integer> fameSizes;
 	
-	public SnapShotManager(IWorld world)
-	{
-		this.world = world;
-		this.started = false;
-		this.fameSizes	= new ArrayList<Integer>();
-		frames = Collections.synchronizedList(new ArrayList());
-	}
 	protected IWorld getWorld()
 	{
 		return this.world;
@@ -52,8 +43,12 @@ public class SnapShotManager implements ISnapShotManager
 	 * Метод вызывается отдельным потоком 
 	 */
 	@Override
-	public void makeSnapShot()
+	public void makeSnapShot(IWorld world)
 	{
+		this.world = world;
+		this.fameSizes	= new ArrayList<Integer>();
+		frames = Collections.synchronizedList(new ArrayList());
+
 		try
 		{
 			String dirName	= getWorld().getProperties().getFileDirectory();
@@ -114,7 +109,7 @@ public class SnapShotManager implements ISnapShotManager
 		}
 		public int save(DataOutputStream fileout) throws IOException
 		{
-			int length	= list.size()*BOT_DATA_LENGHT;
+			int length	= list.size()* BOT_DATA_LENGTH;
 			fileout.writeInt(length);
 			for(int i=0;i<list.size();i++)
 			{
@@ -129,10 +124,6 @@ public class SnapShotManager implements ISnapShotManager
 	}
 	class Item
 	{
-		//int[] data;
-		//Bot bot;
-		
-		
 		byte bot_adr;
 		int bot_x;
 		int bot_y;
