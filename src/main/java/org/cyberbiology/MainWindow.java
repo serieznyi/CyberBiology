@@ -131,7 +131,6 @@ public class MainWindow extends JFrame implements IWindow
                 int width = paintPanel.getWidth() / BOT_WIDTH;
                 int height = paintPanel.getHeight() / BOT_HEIGHT;
                 world = new World(window, width, height);
-                world.generateAdam();
                 paint();
             }
 
@@ -146,7 +145,7 @@ public class MainWindow extends JFrame implements IWindow
             }
 
         });
-        snapShotItem = new JMenuItem("Сделать снимок");
+        snapShotItem = new JMenuItem("Сохранить состояние мира");
         fileMenu.add(snapShotItem);
         snapShotItem.setEnabled(false);
         snapShotItem.addActionListener(e -> {

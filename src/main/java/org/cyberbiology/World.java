@@ -105,7 +105,7 @@ public class World implements IWorld
 		}
 	}
 
-	public void generateAdam()
+	private void generateAdam()
 	{
 		// ========== 1 ==============
 		// бот номер 1 - это уже реальный бот
@@ -171,7 +171,22 @@ public class World implements IWorld
 		{
 			this.thread = new Worker();
 			this.thread.start();
+			if (this.isMatrixEmpty()) {
+				this.generateAdam();
+			}
 		}
+	}
+
+	private boolean isMatrixEmpty() {
+		for (Bot[] matrixLine : this.matrix) {
+			for (Bot bot : matrixLine) {
+				if (bot != null) {
+					return false;
+				}
+			}
+		}
+
+		return true;
 	}
 
 	public void stop()
