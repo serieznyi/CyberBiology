@@ -65,11 +65,6 @@ public class World implements IWorld
 			while (started)
 			{
 
-				boolean rec = recorder.isRecording(); // запоминаем флаг
-														// "записывать" на
-														// полную итерацию кадра
-				if (rec)// вызываем обработчика "старт кадра"
-					recorder.startFrame();
 				// обновляем матрицу
 				for (int y = 0; y < height; y++)
 				{
@@ -80,17 +75,10 @@ public class World implements IWorld
 							// if (matrix[x][y].alive == 3)
 							{
 								matrix[x][y].step(); // выполняем шаг бота
-								if (rec)
-								{
-									// вызываем обработчика записи бота
-									recorder.writeBot(matrix[x][y], x, y);
-								}
 							}
 						}
 					}
 				}
-				if (rec)// вызываем обработчика "конец кадра"
-					recorder.stopFrame();
 				generation = generation + 1;
 				if (generation % 10 == 0)
 				{ // отрисовка на экран через каждые ... шагов
@@ -195,21 +183,6 @@ public class World implements IWorld
 		this.thread = null;
 	}
 
-	public boolean isRecording()
-	{
-		return this.recorder.isRecording();
-	}
-
-	public void startRecording()
-	{
-		this.recorder.startRecording();
-	}
-
-	public boolean stopRecording()
-	{
-		return this.recorder.stopRecording();
-	}
-
 	public int getWidth()
 	{
 		return width;
@@ -218,11 +191,6 @@ public class World implements IWorld
 	public int getHeight()
 	{
 		return height;
-	}
-
-	public boolean haveRecord()
-	{
-		return this.recorder.haveRecord();
 	}
 
 	public void makeSnapShot()

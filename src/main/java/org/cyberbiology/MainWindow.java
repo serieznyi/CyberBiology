@@ -26,16 +26,12 @@ public class MainWindow extends JFrame implements IWindow
     private static World world;
 
     private JMenuItem runItem;
-    private JMenuItem recordItem;
     private JMenuItem snapShotItem;
 
     private final JLabel generationLabel = new JLabel(" Generation: 0 ");
     private final JLabel populationLabel = new JLabel(" Population: 0 ");
     private final JLabel organicLabel = new JLabel(" Organic: 0 ");
-    private final JLabel recorderBufferLabel = new JLabel("");
     private final JLabel memoryLabel = new JLabel("");
-    private final JLabel frameSavedCounterLabel = new JLabel("");
-    private final JLabel frameSkipSizeLabel = new JLabel("");
 
     private PropertyDialog propertyDialog;
 
@@ -108,18 +104,6 @@ public class MainWindow extends JFrame implements IWindow
         memoryLabel.setBorder(BorderFactory.createLoweredBevelBorder());
         statusPanel.add(memoryLabel);
         
-        recorderBufferLabel.setPreferredSize(new Dimension(140, 18));
-        recorderBufferLabel.setBorder(BorderFactory.createLoweredBevelBorder());
-        statusPanel.add(recorderBufferLabel);
-        
-        frameSavedCounterLabel.setPreferredSize(new Dimension(140, 18));
-        frameSavedCounterLabel.setBorder(BorderFactory.createLoweredBevelBorder());
-        statusPanel.add(frameSavedCounterLabel);
-        
-        frameSkipSizeLabel.setPreferredSize(new Dimension(140, 18));
-        frameSkipSizeLabel.setBorder(BorderFactory.createLoweredBevelBorder());
-        statusPanel.add(frameSkipSizeLabel);
-        
         JMenuBar menuBar = new JMenuBar();
         
         JMenu fileMenu = new JMenu("File");
@@ -154,28 +138,6 @@ public class MainWindow extends JFrame implements IWindow
             world.makeSnapShot();
         });
         
-        recordItem = new JMenuItem("Начать запись");
-        fileMenu.add(recordItem);
-        
-        recordItem.addActionListener(e -> {
-            if(!world.isRecording())
-            {
-                world.startRecording();
-                recordItem.setText("Сохранить запись");
-            }else
-            {
-                recordItem.setText("Начать запись");
-
-                world.stopRecording();
-                if(world.haveRecord())
-                {
-                    //saveItem.setEnabled(true);
-                    //deleteItem.setEnabled(true);
-                    //recordItem.setEnabled(false);
-                }
-            }
-        });
-
         fileMenu.addSeparator();
         
         JMenuItem optionItem = new JMenuItem("Настройки");
@@ -188,20 +150,6 @@ public class MainWindow extends JFrame implements IWindow
         fileMenu.add(exitItem);
          
         exitItem.addActionListener(e -> {
-            // Попытка корректно заверишть запись, если она велась
-            // TODO: Не тестировалось!
-            if(world!=null && world.isRecording())
-            {
-                world.stopRecording();
-                try
-                {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e1)
-                {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
-            }
             System.exit(0);
         });
          
@@ -242,14 +190,11 @@ public class MainWindow extends JFrame implements IWindow
         generationLabel.setText(" Generation: " + String.valueOf(world.generation));
         populationLabel.setText(" Population: " + String.valueOf(world.population));
         organicLabel.setText(" Organic: " + String.valueOf(world.organic));
-        recorderBufferLabel.setText(" Buffer: " + String.valueOf(world.recorder.getBufferSize()));
-        
+
         Runtime runtime = Runtime.getRuntime();
         long memory = runtime.totalMemory() - runtime.freeMemory();
         this.memoryLabel.setText(" Memory MB: " + String.valueOf(memory/(1024L * 1024L)));
         
-        this.frameSavedCounterLabel.setText(" Saved frames: " + String.valueOf(world.recorder.getFrameSavedCounter()));
-        this.frameSkipSizeLabel.setText(" Skip frames: " + String.valueOf(world.recorder.getFrameSkipSize()));
         this.paintPanel.repaint();
     }
 

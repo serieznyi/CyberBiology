@@ -6,146 +6,60 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import org.cyberbiology.Bot;
 import org.cyberbiology.prototype.IBot;
 import org.cyberbiology.prototype.IWorld;
-import org.cyberbiology.prototype.record.AbstractRecordManager;
 import org.cyberbiology.prototype.record.IFrame;
+import org.cyberbiology.prototype.record.IRecordManager;
+
 /**
 
 * @author Nickolay
 *
 */
-public class RecordManager extends AbstractRecordManager
+public class RecordManager  implements IRecordManager
 {
 	static final int VERSION	= 0;
-	public static final int botDataLength	= 14+Bot.MIND_SIZE;
+	private static final int BOT_DATA_LENGHT	= 14+Bot.MIND_SIZE;
+	IWorld world;
+
+	private List<IFrame> frames;
+	private boolean started;// флаг о том, что запись заканчивается
+	private File file;
+	private ArrayList<Integer> fameSizes;
 	
 	public RecordManager(IWorld world)
 	{
-		super(world);
+		this.world = world;
+		this.started = false;
+		this.fameSizes	= new ArrayList<Integer>();
+		frames = Collections.synchronizedList(new ArrayList());
 	}
-	@Override
-	protected IFrame newFrame()
+	protected IWorld getWorld()
 	{
-		
-		return new Frame();
+		return this.world;
 	}
+
+	protected static SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy HH.mm.ss");
+
 	/**
 	 * Метод вызывается отдельным потоком 
 	 */
-	@Override
-	protected void save()
-	{
-		try
-		{
-			started	= true;
-			String dirName	= getWorld().getProperties().getFileDirectory();
-			new File(dirName).mkdirs();
-			
-			//Создаем временный файл с данными
-			File tmpfile = new File(dirName+"data.tmp.zip");
-			
-			ZipOutputStream fileout	= new ZipOutputStream(new FileOutputStream(tmpfile));
-			fileout.putNextEntry(new ZipEntry("data"));
-			
-			DataOutputStream out = new DataOutputStream(fileout);
-
-			//Записываем данные
-			while(started)
-			{
-				if(frames.size()>0)
-				{
-					IFrame frame	= frames.remove(0);
-					int fs	= frame.save(out);
-					frameSavedCounter++;
-					fameSizes.add(fs);//подсчитываем количество и длинну фреймов
-					//System.out.println("Frame set size = "+frames.size());
-				}
-				Thread.sleep(20);
-			}
-			//дописываем буфер
-			while(frames.size()>0)
-			{
-				IFrame frame	= frames.remove(0);
-				int fs	= frame.save(out);
-				frameSavedCounter++;
-				fameSizes.add(fs);//подсчитываем количество и длинну фреймов
-				//System.out.println("Frame set size = "+frames.size());
-			}
-			out.writeInt(0);// Следующий фрейм размером 0 - больше данных нет, конец записи
-			
-			fileout.closeEntry();
-			out.flush();
-			out.close();
-			
-			//создаем финальный архив
-			String fileName = formatter.format(new Date())+".cb";
-			file	= new File(dirName+fileName+".zip");
-			fileout	= new ZipOutputStream(new FileOutputStream(file));
-			//вначале архива вписываем общую информацию по кадрам
-			fileout.putNextEntry(new ZipEntry("info"));
-			
-			out = new DataOutputStream(fileout);
-			// Версия 
-			out.writeInt(getVersion());
-			// Ширина мира
-			out.writeInt(getWidth());
-			// Высота мира
-			out.writeInt(getHeight());
-			// общее количество кадров
-			out.writeInt(fameSizes.size());
-			// вписываем длинну каждого кадра
-			for(int i=0;i<fameSizes.size();i++)
-			{
-				out.writeInt(i);
-				out.writeInt(fameSizes.get(i));
-			}
-			// Вписываем данные по кадрам
-			fileout.putNextEntry(new ZipEntry("data"));
-			{
-				ZipInputStream in	= new ZipInputStream(new FileInputStream(tmpfile));
-				in.getNextEntry();
-		        byte[] buffer = new byte[1024];
-		        int len;
-		        while ((len = in.read(buffer)) >= 0)
-		            out.write(buffer, 0, len);
-		        in.close();
-			}
-			out.close();
-			// Удаляем временный файл
-			tmpfile.delete();
-			out	= null;
-			//file=null;
-			thread	= null;
-			
-		} catch (FileNotFoundException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	@Override
 	public void makeSnapShot()
 	{
 		try
 		{
 			String dirName	= getWorld().getProperties().getFileDirectory();
+
 			new File(dirName).mkdirs();
 			
 			//Создаем временный файл с данными
@@ -165,7 +79,7 @@ public class RecordManager extends AbstractRecordManager
 			// Высота мира
 			out.writeInt(height);
 			
-			Frame frame = (Frame) this.newFrame();
+			Frame frame = new Frame();
 			Bot[][] w	= this.getWorld().getWorldArray();
 	        for (int y = 0; y < height; y++)
 	        {
@@ -202,7 +116,7 @@ public class RecordManager extends AbstractRecordManager
 		}
 		public int save(DataOutputStream fileout) throws IOException
 		{
-			int length	= list.size()*botDataLength;
+			int length	= list.size()*BOT_DATA_LENGHT;
 			fileout.writeInt(length);
 			for(int i=0;i<list.size();i++)
 			{
@@ -295,8 +209,8 @@ public class RecordManager extends AbstractRecordManager
 			}
 		}
 	}
-	@Override
-	public int getVersion()
+
+	private int getVersion()
 	{
 		return VERSION;
 	}
