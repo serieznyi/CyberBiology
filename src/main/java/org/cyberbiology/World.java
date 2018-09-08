@@ -2,7 +2,6 @@ package org.cyberbiology;
 
 import org.cyberbiology.prototype.IWindow;
 import org.cyberbiology.prototype.IWorld;
-import org.cyberbiology.snapshot.ISnapShotManager;
 import org.cyberbiology.util.ProjectProperties;
 
 public class World implements IWorld
@@ -46,11 +45,6 @@ public class World implements IWorld
 	public void paint()
 	{
 		window.paint();
-	}
-
-	public ProjectProperties getProperties()
-	{
-		return window.getProperties();
 	}
 
 	class Worker extends Thread

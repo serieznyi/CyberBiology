@@ -15,8 +15,6 @@ public interface IWorld
 
 	void paint();
 
-	ProjectProperties getProperties();
-
 	Bot[][] getWorldArray();
 
 	void restoreLinks();

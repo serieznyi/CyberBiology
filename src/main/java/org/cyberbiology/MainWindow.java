@@ -64,7 +64,7 @@ public class MainWindow extends JFrame implements IWindow
     	window	= this;
 		properties	= new ProjectProperties("properties.xml");
 
-		this.snapShotManager = new SnapShotManager();
+		this.snapShotManager = new SnapShotManager(properties.getOutputDirectory());
 
 		this.propertyDialog = new PropertyDialog(properties, window);
 
@@ -178,7 +178,7 @@ public class MainWindow extends JFrame implements IWindow
         this.setVisible(true);
         this.setExtendedState(MAXIMIZED_BOTH);
         
-        String tmp = this.properties.getFileDirectory();
+        String tmp = this.properties.getOutputDirectory();
         if(tmp==null || tmp.length()==0) {
             this.propertyDialog.show();
         }

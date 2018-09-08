@@ -16,7 +16,7 @@ public class ProjectProperties extends Properties
 		this.load();
 	}
 
-    public void setFileDirectory(String name)
+    public void setOutputDirectory(String name)
 	{
 		if(name==null) {
 			name="";
@@ -26,14 +26,14 @@ public class ProjectProperties extends Properties
 			name+=File.separator;
 		}
 
-    	this.setProperty("FileDirectory", name);
+    	this.setProperty("OutputDirectory", name);
 
     	this.save();
 	}
 
-    public String getFileDirectory()
+    public String getOutputDirectory()
 	{
-    	return this.getProperty("FileDirectory");
+    	return this.getProperty("OutputDirectory");
 	}
 
 	private void load()

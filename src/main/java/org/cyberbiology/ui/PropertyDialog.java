@@ -19,7 +19,7 @@ public class PropertyDialog extends JDialog {
     @Override
     public void show() {
         JTextField fileDirectoryName = new JTextField();
-        fileDirectoryName.setText(this.projectProperties.getFileDirectory());
+        fileDirectoryName.setText(this.projectProperties.getOutputDirectory());
 
         final JComponent[] inputs = new JComponent[]
                 {
@@ -38,7 +38,7 @@ public class PropertyDialog extends JDialog {
 
         if (result == JOptionPane.OK_OPTION)
         {
-            this.projectProperties.setFileDirectory(fileDirectoryName.getText());
+            this.projectProperties.setOutputDirectory(fileDirectoryName.getText());
         }
     }
 }
