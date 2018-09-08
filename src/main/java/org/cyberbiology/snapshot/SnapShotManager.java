@@ -25,19 +25,10 @@ import org.cyberbiology.prototype.record.IFrame;
 */
 public class SnapShotManager implements ISnapShotManager
 {
-	private static final int VERSION	= 0;
+	private static final int VERSION = 0;
 	private static final int BOT_DATA_LENGTH = 14+Bot.MIND_SIZE;
-	IWorld world;
-	private List<IFrame> frames;
-	private File file;
-	private ArrayList<Integer> fameSizes;
-	
-	protected IWorld getWorld()
-	{
-		return this.world;
-	}
-
-	protected static SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy HH.mm.ss");
+	private static SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy HH.mm.ss");
+	private IWorld world;
 
 	/**
 	 * Метод вызывается отдельным потоком 
@@ -46,8 +37,6 @@ public class SnapShotManager implements ISnapShotManager
 	public void makeSnapShot(IWorld world)
 	{
 		this.world = world;
-		this.fameSizes	= new ArrayList<Integer>();
-		frames = Collections.synchronizedList(new ArrayList());
 
 		try
 		{
@@ -57,7 +46,7 @@ public class SnapShotManager implements ISnapShotManager
 			
 			//Создаем временный файл с данными
 			String fileName = formatter.format(new Date())+"";
-			file	= new File(dirName+fileName+".frame.cb.zip");
+			File file = new File(dirName + fileName + ".frame.cb.zip");
 			ZipOutputStream fileout	= new ZipOutputStream(new FileOutputStream(file));
 			fileout.putNextEntry(new ZipEntry("data"));
 			
@@ -66,6 +55,7 @@ public class SnapShotManager implements ISnapShotManager
 			// Версия 
 			out.writeInt(getVersion());
 			int width	= getWorld().getWidth();
+
 			// Ширина мира
 			out.writeInt(width);
 			int height	= getWorld().getHeight();
@@ -100,6 +90,12 @@ public class SnapShotManager implements ISnapShotManager
 			e.printStackTrace();
 		}
 	}
+
+	private IWorld getWorld()
+	{
+		return this.world;
+	}
+
 	class Frame implements IFrame
 	{
 		List<Item> list;
@@ -122,6 +118,7 @@ public class SnapShotManager implements ISnapShotManager
 			this.list.add(new Item((Bot)bot, x, y));
 		}
 	}
+
 	class Item
 	{
 		byte bot_adr;
