@@ -140,7 +140,6 @@ public class MainWindow extends JFrame implements IWindow
         snapShotItem.setEnabled(false);
         snapShotItem.addActionListener(e -> {
             world.stop();
-            runItem.setText("Продолжить");
             this.snapShotManager.makeSnapShot(world);
         });
         
