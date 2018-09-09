@@ -2,8 +2,7 @@ package org.cyberbiology;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
-import org.cyberbiology_old.World;
-import org.cyberbiology_old.prototype.view.IRenderer;
+import org.cyberbiology.prototype.view.IRenderer;
 
 public class WorldHandler extends AnimationTimer {
     private World world;

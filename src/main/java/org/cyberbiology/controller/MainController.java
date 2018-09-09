@@ -10,9 +10,8 @@ import javafx.scene.paint.Color;
 import org.cyberbiology.App;
 import org.cyberbiology.WorldHandler;
 import org.cyberbiology.domain.Size;
-import org.cyberbiology_old.World;
-import org.cyberbiology_old.event.listener.AfterStepEventListener;
-import org.cyberbiology_old.prototype.IWorld;
+import org.cyberbiology.World;
+import org.cyberbiology.listener.AfterStepEventListener;
 
 public class MainController {
     public MenuItem menuButtonRun;
