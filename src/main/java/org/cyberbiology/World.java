@@ -6,7 +6,7 @@ import org.cyberbiology.prototype.IWorld;
 import java.util.ArrayList;
 import java.util.List;
 
-public class World implements IWorld
+public class World implements IWorld, Cloneable
 {
 	private List<AfterStepEventListener> listeners = new ArrayList<AfterStepEventListener>();
 
@@ -170,5 +170,23 @@ public class World implements IWorld
 
 	public int getPopulation() {
 		return this.population;
+	}
+
+	protected World clone() throws CloneNotSupportedException {
+		World copy = (World) super.clone();
+
+		int x = 0;
+		for(Bot[] bots : this.matrix) {
+			int y = 0;
+			for(Bot bot : bots) {
+				if (null != bot) {
+					copy.matrix[x][y] = bot.clone();
+				}
+				y++;
+			}
+			x++;
+		}
+
+		return copy;
 	}
 }
