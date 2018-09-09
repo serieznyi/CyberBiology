@@ -2,7 +2,6 @@ package org.cyberbiology.snapshot;
 
 import org.cyberbiology.Bot;
 import org.cyberbiology.prototype.IWorld;
-import org.cyberbiology.util.ProjectProperties;
 
 import java.io.*;
 import java.text.SimpleDateFormat;

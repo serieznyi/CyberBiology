@@ -1,10 +1,15 @@
 package org.cyberbiology;
 
-import org.cyberbiology.prototype.IWindow;
+import org.cyberbiology.listener.AfterStepEventListener;
 import org.cyberbiology.prototype.IWorld;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class World implements IWorld
 {
+	private List<AfterStepEventListener> listeners = new ArrayList<AfterStepEventListener>();
+
 	public static final int BOT_WIDTH = 4;
 	public static final int BOT_HEIGHT = 4;
 
@@ -16,7 +21,7 @@ public class World implements IWorld
 	public int population;
 	public int organic;
 
-	public World(IWindow win, int width, int height)
+	public World(int width, int height)
 	{
         this.population = 0;
         // TODO мне кжется это итерация, а не поколение. Поколение увеличивается после рождения нового бота
@@ -41,7 +46,7 @@ public class World implements IWorld
 		this.matrix[bot.x][bot.y] = bot;
 	}
 
-	void makeStep() {
+	public void makeStep() {
 		if (this.isMatrixEmpty()) {
 			this.generateAdam();
 		}
@@ -63,6 +68,9 @@ public class World implements IWorld
 			}
 		}
 		generation = generation + 1;
+
+		for (AfterStepEventListener listener : this.listeners)
+			listener.run(this);
 	}
 
 	private void generateAdam()
@@ -118,6 +126,11 @@ public class World implements IWorld
 				}
 			}
 		}
+	}
+
+	@Override
+	public void addListener(AfterStepEventListener runnable) {
+		this.listeners.add(runnable);
 	}
 
 	private boolean isMatrixEmpty() {

@@ -1,12 +1,15 @@
 package org.cyberbiology.prototype;
 
 import org.cyberbiology.Bot;
+import org.cyberbiology.listener.AfterStepEventListener;
 
 public interface IWorld
 {
 	int getWidth();
 
 	int getHeight();
+
+	public void makeStep();
 
 	void setSize(int width, int height);
 
@@ -16,4 +19,5 @@ public interface IWorld
 
 	void restoreLinks();
 
+	void addListener(AfterStepEventListener runnable);
 }
