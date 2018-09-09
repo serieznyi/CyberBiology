@@ -19,7 +19,6 @@ public class MainController {
     public MenuItem menuButtonSetting;
     public Label labelGeneration;
     public Label labelPopulation;
-    public Label labelOrganic;
     public Pane mainPane;
     public Canvas canvas;
     public Label labelMemory;
@@ -87,7 +86,6 @@ public class MainController {
         this.app.getWorld().addListener(world -> {
             labelGeneration.setText("Iteration: " + String.valueOf(world.getIteration()));
             labelPopulation.setText("Population: " + String.valueOf(world.getPopulation()));
-            labelOrganic.setText("Organic: " + String.valueOf(world.organic));
 
             Runtime runtime = Runtime.getRuntime();
             long memory = runtime.totalMemory() - runtime.freeMemory();

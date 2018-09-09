@@ -42,8 +42,6 @@
             <Separator orientation="VERTICAL" />
             <Label fx:id="labelPopulation" text="Population: 0" />
             <Separator orientation="VERTICAL" />
-            <Label fx:id="labelOrganic" text="Organic: 0" />
-            <Separator orientation="VERTICAL" />
             <Label fx:id="labelMemory" text="Memory: 0" />
          </children>
     </HBox>
