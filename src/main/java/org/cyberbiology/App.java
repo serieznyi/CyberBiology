@@ -1,5 +1,6 @@
 package org.cyberbiology;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -28,10 +29,11 @@ public class App extends Application {
     private Stage settingsDialogStage;
     private ProjectProperties properties;
     private World world;
+    private IRenderer currentRenderer = new BasicRenderer();
     private FXMLLoader mainFXMLLoader;
-    private IRenderer defaultRenderer = new BasicRenderer();
     private SnapShotManager snapShotManager;
-    private WorldHandler worldHandler;
+    private Thread physicsThread;
+    private AnimationTimer renderLoop;
     public static final IRenderer[] AVAILABLE_RENDERERS = new IRenderer[]
             {
                     new BasicRenderer(),
@@ -123,21 +125,97 @@ public class App extends Application {
         launch(args);
     }
 
-    public WorldHandler getWorldHandler() {
-        MainController primaryController = this.mainFXMLLoader.getController();
+    public void startWorld() {
+        this.startPhysics();
+        this.startRender();
+    }
 
-        if (null == this.worldHandler) {
-            this.worldHandler = new WorldHandler(
-                    (World) this.getWorld(),
-                    this.defaultRenderer,
-                    primaryController.canvas.getGraphicsContext2D()
-            );
-        }
+    public void stopWorld() {
+        this.stopPhysics();
+        this.stopRender();
+    }
 
-        return this.worldHandler;
+    /**
+     * Physics thread running at 30fps
+     */
+    private void startPhysics() {
+        World worldLocal = this.world;
+
+        this.physicsThread = new Thread(new Runnable() {
+            double physicsFps = 1000f / 1230f; // TODO 30f можно читать из настроек приложения
+
+            @Override
+            public void run() {
+                long prevTime = System.currentTimeMillis();
+                long currTime;
+
+                while (true) {
+
+                    currTime = System.currentTimeMillis();
+
+                    // run only at required physics fps
+                    if ((currTime - prevTime) >= physicsFps) {
+                        worldLocal.makeStep();
+
+                        prevTime = currTime;
+                    }
+                }
+            }
+        });
+
+        physicsThread.setDaemon(true);
+        physicsThread.start();
+    }
+
+    private void stopPhysics()
+    {
+        this.physicsThread.interrupt();
+        this.physicsThread = null;
+    }
+
+    public boolean isWorldStarted() {
+        return null != this.physicsThread;
+    }
+
+    /**
+     * Render loop
+     */
+    private void startRender()
+    {
+        World worldLocal = this.world;
+        App app = this;
+        MainController mainController = this.mainFXMLLoader.getController();
+
+        this.renderLoop = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                try {
+                    app.currentRenderer.render(
+                            worldLocal.clone(),
+                            mainController.canvas.getGraphicsContext2D()
+                    );
+
+                } catch (CloneNotSupportedException ex) {
+                    // TODO что с этим делать?
+                    System.out.println("ERROR");
+                }
+
+            }
+        };
+
+        this.renderLoop.start();
+
+    }
+
+    private void stopRender() {
+        this.renderLoop.stop();
     }
 
     public SnapShotManager getSnapShotManager() {
         return snapShotManager;
+    }
+
+    public void setRenderer(IRenderer renderer) {
+        this.currentRenderer = renderer;
     }
 }

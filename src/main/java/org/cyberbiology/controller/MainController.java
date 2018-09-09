@@ -1,6 +1,6 @@
 package org.cyberbiology.controller;
 
-import javafx.event.ActionEvent;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
@@ -9,7 +9,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import org.cyberbiology.App;
-import org.cyberbiology.WorldHandler;
 import org.cyberbiology.domain.Size;
 import org.cyberbiology.helper.MemoryHelper;
 import org.cyberbiology.prototype.view.IRenderer;
@@ -27,24 +26,24 @@ public class MainController {
     public Menu renderModeMenu;
     private App app;
 
-    public void actionStopApp(ActionEvent actionEvent) throws Exception {
+    public void actionStopApp() {
+        this.app.stopWorld();
         this.app.getPrimaryStage().close();
     }
 
-    public void actionStartApp(ActionEvent actionEvent) {
-        WorldHandler worldHandler = this.app.getWorldHandler();
-        if (!worldHandler.isWorked()) {
-            worldHandler.start();
+    public void actionStartApp() {
+        if (!this.app.isWorldStarted()) {
+            this.app.startWorld();
             this.menuButtonRun.setText("Pause");
             this.menuButtonMakeSnapshot.setDisable(true);
         } else {
-            worldHandler.stop();
+            this.app.stopWorld();
             this.menuButtonRun.setText("Continue");
             this.menuButtonMakeSnapshot.setDisable(false);
         }
     }
 
-    public void actionShowSettings(ActionEvent actionEvent) {
+    public void actionShowSettings() {
         this.app.getSettingsDialogStage().showAndWait();
     }
 
@@ -77,7 +76,7 @@ public class MainController {
         for (IRenderer renderer : App.AVAILABLE_RENDERERS) {
             MenuItem menuItem = new MenuItem(renderer.getName());
 
-            menuItem.setOnAction(e -> app.getWorldHandler().setRenderer(renderer));
+            menuItem.setOnAction(e -> app.setRenderer(renderer));
 
             this.renderModeMenu.getItems().add(menuItem);
         }
@@ -85,14 +84,16 @@ public class MainController {
 
     public void initEventListeners() {
         this.app.getWorld().addListener(world -> {
-            labelGeneration.setText("Iteration: " + String.valueOf(world.getIteration()));
-            labelPopulation.setText("Population: " + String.valueOf(world.getPopulation()));
+            Platform.runLater(() -> {
+                labelGeneration.setText("Iteration: " + String.valueOf(world.getIteration()));
+                labelPopulation.setText("Population: " + String.valueOf(world.getPopulation()));
 
-            Runtime runtime = Runtime.getRuntime();
-            long usedMemory = runtime.totalMemory() - runtime.freeMemory();
-            String usedMemoryHuman = MemoryHelper.human(usedMemory, true);
-            String totalMemoryHuman = MemoryHelper.human(runtime.totalMemory(), true);
-            labelMemory.setText(" Memory: " + usedMemoryHuman + " / " + totalMemoryHuman);
+                Runtime runtime = Runtime.getRuntime();
+                long usedMemory = runtime.totalMemory() - runtime.freeMemory();
+                String usedMemoryHuman = MemoryHelper.human(usedMemory, true);
+                String totalMemoryHuman = MemoryHelper.human(runtime.totalMemory(), true);
+                labelMemory.setText(" Memory: " + usedMemoryHuman + " / " + totalMemoryHuman);
+            });
         });
     }
 

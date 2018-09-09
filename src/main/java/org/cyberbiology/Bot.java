@@ -1224,14 +1224,6 @@ public class Bot implements IBot, Cloneable
 	public Bot clone() throws CloneNotSupportedException {
         Bot copy = (Bot) super.clone();
 
-        if (null != this.mnext) {
-            copy.mnext = this.mnext.clone();
-        }
-
-        if (null != this.mprev) {
-            copy.mprev = this.mprev.clone();
-        }
-
         return copy;
     }
 }

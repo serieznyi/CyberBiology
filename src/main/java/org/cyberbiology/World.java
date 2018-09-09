@@ -175,16 +175,14 @@ public class World implements IWorld, Cloneable
 	protected World clone() throws CloneNotSupportedException {
 		World copy = (World) super.clone();
 
-		int x = 0;
-		for(Bot[] bots : this.matrix) {
-			int y = 0;
-			for(Bot bot : bots) {
+		for (int y = 0; y < this.height; y++) {
+			for (int x = 0; x < this.width; x++) {
+				Bot bot = this.matrix[x][y];
+
 				if (null != bot) {
-					copy.matrix[x][y] = bot.clone();
+					copy.matrix[x][y] = bot;
 				}
-				y++;
 			}
-			x++;
 		}
 
 		return copy;
