@@ -1,32 +1,36 @@
 package org.cyberbiology;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.cyberbiology_old.util.ProjectProperties;
 import org.cyberbiology_old.World;
-import org.cyberbiology.controller.PrimaryController;
+import org.cyberbiology.controller.MainController;
 import java.io.IOException;
 import org.cyberbiology.domain.Size;
-import org.cyberbiology_old.World;
 import org.cyberbiology_old.prototype.view.IRenderer;
 import org.cyberbiology_old.prototype.IWorld;
+import org.cyberbiology_old.view.BasicRenderer;
 
 public class App extends Application {
     private static final int BOT_WIDTH = 4;
     private static final int BOT_HEIGHT = 4;
+
+    private static final int MIN_WINDOW_HEIGHT = 600;
+    private static final int MIN_WINDOW_WIDTH = 900;
 
     private static App self;
     private Stage primaryStage;
     private Stage settingsDialogStage;
     private ProjectProperties properties;
     private World world;
-    private FXMLLoader primaryFXMLLoader;
-    private IRenderer renderer;
+    private FXMLLoader mainFXMLLoader;
+    private IRenderer renderer = new BasicRenderer();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -34,7 +38,7 @@ public class App extends Application {
 
         this.primaryStage = primaryStage;
 
-        this.primaryFXMLLoader = new FXMLLoader(getClass().getResource("../../fxml/primary_window.fxml"));
+        this.mainFXMLLoader = new FXMLLoader(getClass().getResource("../../fxml/main.fxml"));
 
         this.properties	= new ProjectProperties("properties.xml");
 
@@ -44,9 +48,9 @@ public class App extends Application {
 
         this.configurePrimaryStage();
 
-        PrimaryController primaryController = this.primaryFXMLLoader.getController();
+        MainController mainController = this.mainFXMLLoader.getController();
 
-        Size mainPaneSize = primaryController.getMainPaneSize();
+        Size mainPaneSize = mainController.getMainPaneSize();
 
         this.world = new World(
                 (int) mainPaneSize.getWidth() / BOT_WIDTH,
@@ -65,8 +69,18 @@ public class App extends Application {
     }
 
     private void configurePrimaryStage() throws IOException {
-        Parent root = this.primaryFXMLLoader.load();
+        Parent root = this.mainFXMLLoader.load();
 
+        Screen screen = Screen.getPrimary();
+        Rectangle2D bounds = screen.getVisualBounds();
+
+        this.primaryStage.setX(bounds.getMinX());
+        this.primaryStage.setY(bounds.getMinY());
+        this.primaryStage.setWidth(bounds.getWidth());
+        this.primaryStage.setHeight(bounds.getHeight());
+        this.primaryStage.setMinWidth(MIN_WINDOW_WIDTH);
+        this.primaryStage.setMinHeight(MIN_WINDOW_HEIGHT);
+        this.primaryStage.setFullScreen(true);
         this.primaryStage.setTitle("CyberBiologyTest 1.0.0");
         this.primaryStage.setScene(new Scene(root));
         this.primaryStage.show();
@@ -99,7 +113,17 @@ public class App extends Application {
         launch(args);
     }
 
-    public IRenderer getRenderer() {
+    private IRenderer getRenderer() {
         return renderer;
+    }
+
+    public void runWorld() {
+        MainController primaryController = this.mainFXMLLoader.getController();
+
+        new WorldHandler(
+                (World) this.getWorld(),
+                this.getRenderer(),
+                primaryController.canvas.getGraphicsContext2D()
+        ).start();
     }
 }

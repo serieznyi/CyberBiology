@@ -1,13 +1,11 @@
 package org.cyberbiology_old.prototype.view;
 
+import javafx.scene.canvas.GraphicsContext;
 import org.cyberbiology_old.World;
-
-import javax.swing.*;
-import java.awt.*;
 
 public interface IRenderer
 {
-	Image render(World world, JPanel canvas);
+	void render(World world, GraphicsContext graphicsContext);
 
 	String getName();
 }

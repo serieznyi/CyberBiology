@@ -192,7 +192,7 @@ public class MainWindow extends JFrame implements IWindow
             this.memoryLabel.setText(" Memory MB: " + String.valueOf(memory/(1024L * 1024L)));
 
             if (world.getGeneration() % 10 == 0) {
-                buffer = renderer.render(world, paintPanel);
+//                buffer = renderer.render(world, paintPanel);
             }
 
             this.paintPanel.repaint();
