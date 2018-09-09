@@ -3,9 +3,7 @@ package org.cyberbiology.controller;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import org.cyberbiology.App;
@@ -73,8 +71,14 @@ public class MainController {
             canvas.getGraphicsContext2D().fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         });
 
+        ToggleGroup groupEffect = new ToggleGroup();
         for (IRenderer renderer : App.AVAILABLE_RENDERERS) {
-            MenuItem menuItem = new MenuItem(renderer.getName());
+            RadioMenuItem menuItem = new RadioMenuItem(renderer.getName());
+            menuItem.setToggleGroup(groupEffect);
+
+            if (renderer.getName().equals(app.getCurrentRenderer().getName())) {
+                menuItem.setSelected(true);
+            }
 
             menuItem.setOnAction(e -> app.setRenderer(renderer));
 

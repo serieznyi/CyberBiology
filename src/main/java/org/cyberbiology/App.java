@@ -218,4 +218,8 @@ public class App extends Application {
     public void setRenderer(IRenderer renderer) {
         this.currentRenderer = renderer;
     }
+
+    public IRenderer getCurrentRenderer() {
+        return this.currentRenderer;
+    }
 }
