@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import org.cyberbiology.render.MultiCellRenderer;
 import org.cyberbiology.snapshot.SnapShotManager;
 import org.cyberbiology.util.ProjectProperties;
 import org.cyberbiology.controller.MainController;
@@ -15,24 +16,27 @@ import java.io.IOException;
 import org.cyberbiology.domain.Size;
 import org.cyberbiology.prototype.view.IRenderer;
 import org.cyberbiology.prototype.IWorld;
-import org.cyberbiology.view.BasicRenderer;
+import org.cyberbiology.render.BasicRenderer;
 
 public class App extends Application {
     private static final int BOT_WIDTH = 4;
     private static final int BOT_HEIGHT = 4;
-
     private static final int MIN_WINDOW_HEIGHT = 600;
     private static final int MIN_WINDOW_WIDTH = 900;
-
     private static App self;
     private Stage primaryStage;
     private Stage settingsDialogStage;
     private ProjectProperties properties;
     private World world;
     private FXMLLoader mainFXMLLoader;
-    private IRenderer renderer = new BasicRenderer();
+    private IRenderer defaultRenderer = new BasicRenderer();
     private SnapShotManager snapShotManager;
     private WorldHandler worldHandler;
+    public static final IRenderer[] AVAILABLE_RENDERERS = new IRenderer[]
+            {
+                    new BasicRenderer(),
+                    new MultiCellRenderer()
+            };
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -119,17 +123,13 @@ public class App extends Application {
         launch(args);
     }
 
-    private IRenderer getRenderer() {
-        return renderer;
-    }
-
     public WorldHandler getWorldHandler() {
         MainController primaryController = this.mainFXMLLoader.getController();
 
         if (null == this.worldHandler) {
             this.worldHandler = new WorldHandler(
                     (World) this.getWorld(),
-                    this.getRenderer(),
+                    this.defaultRenderer,
                     primaryController.canvas.getGraphicsContext2D()
             );
         }

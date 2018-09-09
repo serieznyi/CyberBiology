@@ -21,6 +21,7 @@
                   <MenuItem fx:id="menuButtonExit" mnemonicParsing="false" onAction="#actionStopApp" text="Exit" />
                </items>
             </Menu>
+            <Menu fx:id="renderModeMenu" mnemonicParsing="false" text="Render Mode" />
          </menus>
       </MenuBar>
       <ScrollPane prefViewportHeight="550.0" prefViewportWidth="900.0" VBox.vgrow="ALWAYS">

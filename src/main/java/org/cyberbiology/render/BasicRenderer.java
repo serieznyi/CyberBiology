@@ -1,4 +1,4 @@
-package org.cyberbiology.view;
+package org.cyberbiology.render;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -13,7 +13,7 @@ public class BasicRenderer implements IRenderer
 	}
 
     public void render(World world, GraphicsContext graphicsContext) {
-        graphicsContext.rect(0, 0, world.width * World.BOT_WIDTH + 1, world.height * World.BOT_HEIGHT + 1);
+        graphicsContext.fillRect(0, 0, world.width * World.BOT_WIDTH + 1, world.height * World.BOT_HEIGHT + 1);
 
         world.population = 0;
         world.organic = 0;
@@ -28,7 +28,7 @@ public class BasicRenderer implements IRenderer
                     world.organic = world.organic + 1;
                 } else if (world.matrix[x][y].alive == 3) {
                     graphicsContext.setFill(Color.BLACK);
-                    graphicsContext.rect(x * World.BOT_WIDTH, y * World.BOT_HEIGHT, World.BOT_WIDTH, World.BOT_HEIGHT);
+                    graphicsContext.fillRect(x * World.BOT_WIDTH, y * World.BOT_HEIGHT, World.BOT_WIDTH, World.BOT_HEIGHT);
 
                     int green = world.matrix[x][y].c_green - ((world.matrix[x][y].c_green * world.matrix[x][y].health) / 2000);
                     if (green < 0) green = 0;

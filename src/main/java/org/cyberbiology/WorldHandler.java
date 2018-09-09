@@ -16,6 +16,10 @@ public class WorldHandler extends AnimationTimer {
         this.graphicsContext = graphicsContext;
     }
 
+    public void setRenderer(IRenderer renderer) {
+        this.renderer = renderer;
+    }
+
     @Override
     public void handle(long l) {
         this.world.makeStep();
