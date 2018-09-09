@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import org.cyberbiology.App;
 import org.cyberbiology.WorldHandler;
 import org.cyberbiology.domain.Size;
+import org.cyberbiology.helper.MemoryHelper;
 import org.cyberbiology.prototype.view.IRenderer;
 
 public class MainController {
@@ -88,8 +89,10 @@ public class MainController {
             labelPopulation.setText("Population: " + String.valueOf(world.getPopulation()));
 
             Runtime runtime = Runtime.getRuntime();
-            long memory = runtime.totalMemory() - runtime.freeMemory();
-            labelMemory.setText(" Memory MB: " + String.valueOf(memory/(1024L * 1024L)));
+            long usedMemory = runtime.totalMemory() - runtime.freeMemory();
+            String usedMemoryHuman = MemoryHelper.human(usedMemory, true);
+            String totalMemoryHuman = MemoryHelper.human(runtime.totalMemory(), true);
+            labelMemory.setText(" Memory: " + usedMemoryHuman + " / " + totalMemoryHuman);
         });
     }
 
