@@ -15,8 +15,6 @@ public class BasicRenderer implements IRenderer
     public void render(World world, GraphicsContext graphicsContext) {
         graphicsContext.fillRect(0, 0, world.width * World.BOT_WIDTH + 1, world.height * World.BOT_HEIGHT + 1);
 
-        world.population = 0;
-        world.organic = 0;
         for (int y = 0; y < world.height; y++) {
             for (int x = 0; x < world.width; x++) {
                 if (world.matrix[x][y] == null) {
@@ -36,7 +34,6 @@ public class BasicRenderer implements IRenderer
                     int blue = (int) (world.matrix[x][y].c_blue * 0.8 - ((world.matrix[x][y].c_blue * world.matrix[x][y].mineral) / 2000));
                     graphicsContext.setFill(Color.rgb(world.matrix[x][y].c_red, green, blue));
                     graphicsContext.fillRect(x * World.BOT_WIDTH + 1, y * World.BOT_HEIGHT + 1,World.BOT_WIDTH -1, World.BOT_HEIGHT -1);
-                    world.population = world.population + 1;
                 }
             }
         }

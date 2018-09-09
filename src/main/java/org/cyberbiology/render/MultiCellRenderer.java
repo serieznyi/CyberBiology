@@ -15,7 +15,6 @@ public class MultiCellRenderer implements IRenderer
     public void render(World world, GraphicsContext graphicsContext) {
         graphicsContext.fillRect(0, 0, world.width * World.BOT_WIDTH + 1, world.height * 4 + 1);
 
-        world.population = 0;
         world.organic = 0;
         for (int y = 0; y < world.height; y++) {
             for (int x = 0; x < world.width; x++) {
@@ -53,8 +52,6 @@ public class MultiCellRenderer implements IRenderer
     	                    graphicsContext.fillRect(x * World.BOT_WIDTH + 1, y * World.BOT_HEIGHT + 1, World.BOT_WIDTH -1, World.BOT_HEIGHT -1);
             					break;
             		}
-
-                    world.population = world.population + 1;
                 }
             }
         }

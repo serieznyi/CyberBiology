@@ -51,6 +51,8 @@ public class World implements IWorld
 			this.generateAdam();
 		}
 
+		this.population = 0;
+
 		// обновляем матрицу
 		for (int y = 0; y < height; y++)
 		{
@@ -62,12 +64,19 @@ public class World implements IWorld
 					{
 //						System.out.println(getClass() + " - Process bot [" + x + "][" + y + "]");
 
+						Bot bot = matrix[x][y];
+
+						if (bot.alive == 3) {
+							this.population++;
+						}
+
 						matrix[x][y].step(); // выполняем шаг бота
 					}
 				}
 			}
 		}
-		generation = generation + 1;
+
+		this.generation++;
 
 		for (AfterStepEventListener listener : this.listeners)
 			listener.run(this);
