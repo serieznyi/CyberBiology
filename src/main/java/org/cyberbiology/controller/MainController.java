@@ -8,7 +8,11 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import org.cyberbiology.App;
+import org.cyberbiology.WorldHandler;
 import org.cyberbiology.domain.Size;
+import org.cyberbiology_old.World;
+import org.cyberbiology_old.event.listener.AfterStepEventListener;
+import org.cyberbiology_old.prototype.IWorld;
 
 public class MainController {
     public MenuItem menuButtonRun;
@@ -20,6 +24,7 @@ public class MainController {
     public Pane mainPane;
     public Canvas canvas;
     public Label labelMemory;
+    public MenuItem menuButtonMakeSnapshot;
     private App app;
 
     public void actionStopApp(ActionEvent actionEvent) throws Exception {
@@ -27,26 +32,16 @@ public class MainController {
     }
 
     public void actionStartApp(ActionEvent actionEvent) {
-        this.app.runWorld();
-
-//        this.labelGeneration.setText("Generation: " + String.valueOf(world.getGeneration()));
-//        this.labelPopulation.setText("Population: " + String.valueOf(world.population));
-//        this.labelOrganic.setText("Organic: " + String.valueOf(world.organic));
-//
-//        Runtime runtime = Runtime.getRuntime();
-//        long memory = runtime.totalMemory() - runtime.freeMemory();
-//        this.labelMemory.setText(" Memory MB: " + String.valueOf(memory/(1024L * 1024L)));
-
-//        if (null == this.thread) {
-//            this.thread = this.createThread();
-//            this.thread.start();
-//            this.menuButtonRun.setText("Пауза");
-//        } else {
-//            this.thread.interrupt();
-//            this.thread = null;
-//            this.menuButtonRun.setText("Продолжить");
-////            this.menuButtonSnapshot.setEnabled(true);
-//        }
+        WorldHandler worldHandler = this.app.getWorldHandler();
+        if (!worldHandler.isWorked()) {
+            worldHandler.start();
+            this.menuButtonRun.setText("Pause");
+            this.menuButtonMakeSnapshot.setDisable(true);
+        } else {
+            worldHandler.stop();
+            this.menuButtonRun.setText("Continue");
+            this.menuButtonMakeSnapshot.setDisable(false);
+        }
     }
 
     public void actionShowSettings(ActionEvent actionEvent) {
@@ -78,7 +73,21 @@ public class MainController {
             canvas.getGraphicsContext2D().setFill(Color.WHITE);
             canvas.getGraphicsContext2D().fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         });
+    }
 
+    public void initEventListeners() {
+        this.app.getWorld().addListener(new AfterStepEventListener() {
+            @Override
+            public void run(World world) {
+                labelGeneration.setText("Generation: " + String.valueOf(world.getGeneration()));
+                labelPopulation.setText("Population: " + String.valueOf(world.population));
+                labelOrganic.setText("Organic: " + String.valueOf(world.organic));
+
+                Runtime runtime = Runtime.getRuntime();
+                long memory = runtime.totalMemory() - runtime.freeMemory();
+                labelMemory.setText(" Memory MB: " + String.valueOf(memory/(1024L * 1024L)));
+            }
+        });
     }
 
     public Size getMainPaneSize() {
@@ -86,5 +95,9 @@ public class MainController {
                 this.mainPane.getWidth(),
                 this.mainPane.getHeight()
         );
+    }
+
+    public void actionMakeSnapshot(ActionEvent actionEvent) {
+        this.app.getSnapShotManager().makeSnapShot(this.app.getWorld());
     }
 }

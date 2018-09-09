@@ -9,6 +9,7 @@ public class WorldHandler extends AnimationTimer {
     private World world;
     private IRenderer renderer;
     private GraphicsContext graphicsContext;
+    private boolean worked = false;
 
     WorldHandler(World world, IRenderer renderer, GraphicsContext graphicsContext) {
         this.world = world;
@@ -23,5 +24,23 @@ public class WorldHandler extends AnimationTimer {
         if (this.world.getGeneration() % 10 == 0) {
             this.renderer.render(world, this.graphicsContext);
         }
+    }
+
+    @Override
+    public void start() {
+        this.worked = true;
+
+        super.start();
+    }
+
+    @Override
+    public void stop() {
+        this.worked = false;
+
+        super.stop();
+    }
+
+    public boolean isWorked() {
+        return worked;
     }
 }

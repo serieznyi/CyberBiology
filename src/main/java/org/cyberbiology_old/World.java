@@ -1,9 +1,15 @@
 package org.cyberbiology_old;
 
+import org.cyberbiology_old.event.listener.AfterStepEventListener;
 import org.cyberbiology_old.prototype.IWorld;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class World implements IWorld
 {
+	private List<AfterStepEventListener> listeners = new ArrayList<AfterStepEventListener>();
+
 	public static final int BOT_WIDTH = 4;
 	public static final int BOT_HEIGHT = 4;
 
@@ -62,6 +68,9 @@ public class World implements IWorld
 			}
 		}
 		generation = generation + 1;
+
+		for (AfterStepEventListener listener : this.listeners)
+			listener.run(this);
 	}
 
 	private void generateAdam()
@@ -117,6 +126,11 @@ public class World implements IWorld
 				}
 			}
 		}
+	}
+
+	@Override
+	public void addListener(AfterStepEventListener runnable) {
+		this.listeners.add(runnable);
 	}
 
 	private boolean isMatrixEmpty() {

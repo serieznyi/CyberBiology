@@ -16,26 +16,34 @@
             <Menu mnemonicParsing="false" text="File">
                <items>
                   <MenuItem fx:id="menuButtonRun" mnemonicParsing="false" onAction="#actionStartApp" text="Run" />
-                  <MenuItem fx:id="menuButtonExit" mnemonicParsing="false" onAction="#actionStopApp" text="Exit" />
                   <MenuItem fx:id="menuButtonSetting" mnemonicParsing="false" onAction="#actionShowSettings" text="Settings" />
+                  <MenuItem fx:id="menuButtonMakeSnapshot" disable="true" mnemonicParsing="false" onAction="#actionMakeSnapshot" text="Make snapshot" />
+                  <MenuItem fx:id="menuButtonExit" mnemonicParsing="false" onAction="#actionStopApp" text="Exit" />
                </items>
             </Menu>
          </menus>
       </MenuBar>
-      <AnchorPane fx:id="mainPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
-         <children>
-            <Canvas fx:id="canvas" height="200.0" width="200.0" />
-         </children>
-      </AnchorPane>
+      <ScrollPane prefViewportHeight="550.0" prefViewportWidth="900.0" VBox.vgrow="ALWAYS">
+         <content>
+            <AnchorPane fx:id="mainPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+               <children>
+                  <Canvas fx:id="canvas" height="200.0" width="200.0" />
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
       <padding>
         <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
       </padding>
          <children>
-            <Label fx:id="labelMemory" text="Memory: 0" />
-            <Label fx:id="labelOrganic" text="Organic: 0" />
-            <Label fx:id="labelPopulation" text="Population: 0" />
             <Label fx:id="labelGeneration" text="Generation: 0" />
+            <Separator orientation="VERTICAL" />
+            <Label fx:id="labelPopulation" text="Population: 0" />
+            <Separator orientation="VERTICAL" />
+            <Label fx:id="labelOrganic" text="Organic: 0" />
+            <Separator orientation="VERTICAL" />
+            <Label fx:id="labelMemory" text="Memory: 0" />
          </children>
     </HBox>
   </children>

@@ -1,6 +1,7 @@
 package org.cyberbiology_old.prototype;
 
 import org.cyberbiology_old.Bot;
+import org.cyberbiology_old.event.listener.AfterStepEventListener;
 
 public interface IWorld
 {
@@ -18,4 +19,5 @@ public interface IWorld
 
 	void restoreLinks();
 
+	void addListener(AfterStepEventListener runnable);
 }

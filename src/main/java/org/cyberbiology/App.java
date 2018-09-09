@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import org.cyberbiology_old.snapshot.SnapShotManager;
 import org.cyberbiology_old.util.ProjectProperties;
 import org.cyberbiology_old.World;
 import org.cyberbiology.controller.MainController;
@@ -31,6 +32,8 @@ public class App extends Application {
     private World world;
     private FXMLLoader mainFXMLLoader;
     private IRenderer renderer = new BasicRenderer();
+    private SnapShotManager snapShotManager;
+    private WorldHandler worldHandler;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -48,6 +51,8 @@ public class App extends Application {
 
         this.configurePrimaryStage();
 
+        this.snapShotManager = new SnapShotManager(properties.getOutputDirectory());
+
         MainController mainController = this.mainFXMLLoader.getController();
 
         Size mainPaneSize = mainController.getMainPaneSize();
@@ -56,6 +61,8 @@ public class App extends Application {
                 (int) mainPaneSize.getWidth() / BOT_WIDTH,
                 (int) mainPaneSize.getHeight() / BOT_HEIGHT
         );
+
+        mainController.initEventListeners();
 
         this.primaryStage.show();
     }
@@ -117,13 +124,21 @@ public class App extends Application {
         return renderer;
     }
 
-    public void runWorld() {
+    public WorldHandler getWorldHandler() {
         MainController primaryController = this.mainFXMLLoader.getController();
 
-        new WorldHandler(
-                (World) this.getWorld(),
-                this.getRenderer(),
-                primaryController.canvas.getGraphicsContext2D()
-        ).start();
+        if (null == this.worldHandler) {
+            this.worldHandler = new WorldHandler(
+                    (World) this.getWorld(),
+                    this.getRenderer(),
+                    primaryController.canvas.getGraphicsContext2D()
+            );
+        }
+
+        return this.worldHandler;
+    }
+
+    public SnapShotManager getSnapShotManager() {
+        return snapShotManager;
     }
 }
