@@ -17,21 +17,20 @@ public class World implements IWorld
 	public int height;
 
 	public Bot[][] matrix; // Матрица мира
-	public int generation;
-	public int population;
+	private int iteration;
+	private int population;
 	public int organic;
 
 	public World(int width, int height)
 	{
         this.population = 0;
-        // TODO мне кжется это итерация, а не поколение. Поколение увеличивается после рождения нового бота
-        this.generation = 0;
+        this.iteration = 0;
         this.organic = 0;
 		this.setSize(width, height);
 	}
 
-	public int getGeneration() {
-		return  this.generation;
+	public int getIteration() {
+		return  this.iteration;
 	}
 
 	public void setSize(int width, int height)
@@ -76,7 +75,7 @@ public class World implements IWorld
 			}
 		}
 
-		this.generation++;
+		this.iteration++;
 
 		for (AfterStepEventListener listener : this.listeners)
 			listener.run(this);
@@ -167,5 +166,9 @@ public class World implements IWorld
 	public Bot[][] getWorldArray()
 	{
 		return  this.matrix;
+	}
+
+	public int getPopulation() {
+		return this.population;
 	}
 }

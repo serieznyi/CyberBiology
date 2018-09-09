@@ -24,7 +24,7 @@ public class WorldHandler extends AnimationTimer {
     public void handle(long l) {
         this.world.makeStep();
 
-        if (this.world.getGeneration() % 10 == 0) {
+        if (this.world.getIteration() % 10 == 0) {
             this.renderer.render(world, this.graphicsContext);
         }
     }

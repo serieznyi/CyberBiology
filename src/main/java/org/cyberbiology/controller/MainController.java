@@ -1,7 +1,6 @@
 package org.cyberbiology.controller;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
@@ -12,8 +11,6 @@ import javafx.scene.paint.Color;
 import org.cyberbiology.App;
 import org.cyberbiology.WorldHandler;
 import org.cyberbiology.domain.Size;
-import org.cyberbiology.World;
-import org.cyberbiology.listener.AfterStepEventListener;
 import org.cyberbiology.prototype.view.IRenderer;
 
 public class MainController {
@@ -88,8 +85,8 @@ public class MainController {
 
     public void initEventListeners() {
         this.app.getWorld().addListener(world -> {
-            labelGeneration.setText("Generation: " + String.valueOf(world.getGeneration()));
-            labelPopulation.setText("Population: " + String.valueOf(world.population));
+            labelGeneration.setText("Iteration: " + String.valueOf(world.getIteration()));
+            labelPopulation.setText("Population: " + String.valueOf(world.getPopulation()));
             labelOrganic.setText("Organic: " + String.valueOf(world.organic));
 
             Runtime runtime = Runtime.getRuntime();

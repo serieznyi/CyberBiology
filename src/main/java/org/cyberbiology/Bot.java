@@ -556,7 +556,7 @@ public class Bot implements IBot
             a = a + 4;
         }
         int hlt = a + 1 * (11 - (15 * bot.y / world.height) + t); // формула вычисления энергии ============================= SEZON!!!!!!!!!!
-//        System.out.println(world.generation + ": " + bot.health + " + " + hlt);
+//        System.out.println(world.iteration + ": " + bot.health + " + " + hlt);
         if (hlt > 0) {
             bot.health = bot.health + hlt;   // прибавляем полученную энергия к энергии бота
             goGreen(bot, hlt);                                     // бот от этого зеленеет
