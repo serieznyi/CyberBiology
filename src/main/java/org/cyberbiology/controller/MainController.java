@@ -11,6 +11,8 @@ import org.cyberbiology.domain.Size;
 import org.cyberbiology.helper.MemoryHelper;
 import org.cyberbiology.prototype.view.IRenderer;
 
+import java.util.ResourceBundle;
+
 public class MainController {
     public MenuItem menuButtonRun;
     public MenuItem menuButtonExit;
@@ -23,6 +25,7 @@ public class MainController {
     public MenuItem menuButtonMakeSnapshot;
     public Menu renderModeMenu;
     private App app;
+    private ResourceBundle bundle;
 
     public void actionStopApp() {
         this.app.stopWorld();
@@ -32,7 +35,7 @@ public class MainController {
     public void actionStartApp() {
         if (!this.app.isWorldStarted()) {
             this.app.startWorld();
-            this.menuButtonRun.setText("Pause");
+            this.menuButtonRun.setText(this.app.getResourceBundle().getString("menu.title.state.pause"));
             this.menuButtonMakeSnapshot.setDisable(true);
         } else {
             this.app.stopWorld();

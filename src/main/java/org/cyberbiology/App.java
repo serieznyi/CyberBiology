@@ -14,6 +14,9 @@ import org.cyberbiology.snapshot.SnapShotManager;
 import org.cyberbiology.util.ProjectProperties;
 import org.cyberbiology.controller.MainController;
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import org.cyberbiology.domain.Size;
 import org.cyberbiology.prototype.view.IRenderer;
 import org.cyberbiology.prototype.IWorld;
@@ -31,6 +34,7 @@ public class App extends Application {
     private World world;
     private IRenderer currentRenderer = new BasicRenderer();
     private FXMLLoader mainFXMLLoader;
+    private FXMLLoader settingsDialogFXMLLoader;
     private SnapShotManager snapShotManager;
     private Thread physicsThread;
     private AnimationTimer renderLoop;
@@ -39,6 +43,7 @@ public class App extends Application {
                     new BasicRenderer(),
                     new MultiCellRenderer()
             };
+    private ResourceBundle resourceBundle;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -46,7 +51,10 @@ public class App extends Application {
 
         this.primaryStage = primaryStage;
 
-        this.mainFXMLLoader = new FXMLLoader(getClass().getResource("../../fxml/main.fxml"));
+        this.resourceBundle = ResourceBundle.getBundle("org.cyberbiology.App", new UTF8Control());
+
+        this.mainFXMLLoader = new FXMLLoader(getClass().getResource("main.fxml"));
+        this.settingsDialogFXMLLoader = new FXMLLoader(getClass().getResource("settings_dialog.fxml"));
 
         this.properties	= new ProjectProperties("properties.xml");
 
@@ -103,7 +111,7 @@ public class App extends Application {
         this.settingsDialogStage.initOwner(this.primaryStage);
         this.settingsDialogStage.initModality(Modality.APPLICATION_MODAL);
 
-        Parent root = FXMLLoader.load(getClass().getResource("../../fxml/settings_dialog.fxml"));
+        Parent root = this.settingsDialogFXMLLoader.load();
         this.settingsDialogStage.setTitle("Settings");
         this.settingsDialogStage.setResizable(false);
         this.settingsDialogStage.setScene(new Scene(root));
@@ -122,6 +130,8 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
+        Locale.setDefault(new Locale("ru"));
+
         launch(args);
     }
 
@@ -221,5 +231,9 @@ public class App extends Application {
 
     public IRenderer getCurrentRenderer() {
         return this.currentRenderer;
+    }
+
+    public ResourceBundle getResourceBundle() {
+        return resourceBundle;
     }
 }
