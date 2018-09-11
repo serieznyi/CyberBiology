@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.canvas.*?>
 <?import java.lang.*?>
-<?import java.util.*?>
 <?import javafx.geometry.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
 
 <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.cyberbiology.controller.MainController">
   <children>
       <MenuBar>
          <menus>
-            <Menu mnemonicParsing="false" text="File">
+            <Menu mnemonicParsing="false" text="%menu.title.file">
                <items>
-                  <MenuItem fx:id="menuButtonRun" mnemonicParsing="false" onAction="#actionStartApp" text="Run" />
-                  <MenuItem fx:id="menuButtonSetting" mnemonicParsing="false" onAction="#actionShowSettings" text="Settings" />
-                  <MenuItem fx:id="menuButtonMakeSnapshot" disable="true" mnemonicParsing="false" onAction="#actionMakeSnapshot" text="Make snapshot" />
-                  <MenuItem fx:id="menuButtonExit" mnemonicParsing="false" onAction="#actionStopApp" text="Exit" />
+                  <MenuItem fx:id="menuButtonRun" mnemonicParsing="false" onAction="#actionStartApp" text="%menu.title.state.run" />
+                  <MenuItem fx:id="menuButtonSetting" mnemonicParsing="false" onAction="#actionShowSettings" text="%menu.title.settings" />
+                  <MenuItem fx:id="menuButtonMakeSnapshot" disable="true" mnemonicParsing="false" onAction="#actionMakeSnapshot" text="%menu.title.make_snapshot" />
+                  <MenuItem fx:id="menuButtonExit" mnemonicParsing="false" onAction="#actionStopApp" text="%menu.title.exit" />
                </items>
             </Menu>
             <Menu fx:id="renderModeMenu" mnemonicParsing="false" text="Render Mode" />

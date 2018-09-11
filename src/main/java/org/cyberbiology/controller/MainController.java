@@ -39,7 +39,7 @@ public class MainController {
             this.menuButtonMakeSnapshot.setDisable(true);
         } else {
             this.app.stopWorld();
-            this.menuButtonRun.setText("Continue");
+            this.menuButtonRun.setText(this.app.getResourceBundle().getString("menu.title.state.continue"));
             this.menuButtonMakeSnapshot.setDisable(false);
         }
     }

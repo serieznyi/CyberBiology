@@ -53,8 +53,8 @@ public class App extends Application {
 
         this.resourceBundle = ResourceBundle.getBundle("org.cyberbiology.App", new UTF8Control());
 
-        this.mainFXMLLoader = new FXMLLoader(getClass().getResource("main.fxml"));
-        this.settingsDialogFXMLLoader = new FXMLLoader(getClass().getResource("settings_dialog.fxml"));
+        this.mainFXMLLoader = new FXMLLoader(getClass().getResource("main.fxml"), this.resourceBundle);
+        this.settingsDialogFXMLLoader = new FXMLLoader(getClass().getResource("settings_dialog.fxml"), this.resourceBundle);
 
         this.properties	= new ProjectProperties("properties.xml");
 
@@ -130,7 +130,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        Locale.setDefault(new Locale("ru"));
+        Locale.setDefault(new Locale("en"));
 
         launch(args);
     }
