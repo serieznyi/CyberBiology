@@ -100,7 +100,7 @@ public class App extends Application {
         this.primaryStage.setHeight(bounds.getHeight());
         this.primaryStage.setMinWidth(MIN_WINDOW_WIDTH);
         this.primaryStage.setMinHeight(MIN_WINDOW_HEIGHT);
-        this.primaryStage.setFullScreen(true);
+        this.primaryStage.setMaximized(true);
         this.primaryStage.setTitle("CyberBiologyTest 1.0.0");
         this.primaryStage.setScene(new Scene(root));
         this.primaryStage.show();
