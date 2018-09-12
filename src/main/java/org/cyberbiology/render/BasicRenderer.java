@@ -54,6 +54,14 @@ public class BasicRenderer implements IRenderer
 
         int blue = (int) (bot.c_blue * 0.8 - ((bot.c_blue * bot.mineral) / 2000));
 
+        if (blue < 0)  {
+            blue = 0;
+        }
+
+        if (blue > 255) {
+            blue = 255;
+        }
+
         return Color.rgb(bot.c_red, green, blue);
     }
 }
