@@ -10,8 +10,7 @@ public class World implements IWorld, Cloneable
 {
 	private List<AfterStepEventListener> listeners = new ArrayList<AfterStepEventListener>();
 
-	public static final int BOT_WIDTH = 4;
-	public static final int BOT_HEIGHT = 4;
+	public static final int BOT_SIZE = 4;
 
 	public int width;
 	public int height;

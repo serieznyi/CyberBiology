@@ -14,7 +14,7 @@ public class BasicRenderer implements IRenderer
 	}
 
     public void render(World world, GraphicsContext graphicsContext) {
-        graphicsContext.fillRect(0, 0, world.width * World.BOT_WIDTH + 1, world.height * World.BOT_HEIGHT + 1);
+        graphicsContext.fillRect(0, 0, world.width * World.BOT_SIZE + 1, world.height * World.BOT_SIZE + 1);
 
         for (int y = 0; y < world.height; y++) {
             for (int x = 0; x < world.width; x++) {
@@ -22,20 +22,20 @@ public class BasicRenderer implements IRenderer
 
                 if (bot == null) {
                     graphicsContext.setFill(Color.WHITE);
-                    graphicsContext.fillRect(x * World.BOT_WIDTH,y * World.BOT_HEIGHT, World.BOT_WIDTH, World.BOT_HEIGHT);
+                    graphicsContext.fillRect(x * World.BOT_SIZE,y * World.BOT_SIZE, World.BOT_SIZE, World.BOT_SIZE);
                 } else if (bot.alive == 1 || bot.alive == 2) {
                     graphicsContext.setFill(Color.rgb(200, 200, 200));
-                    graphicsContext.fillRect(x * World.BOT_WIDTH, y * World.BOT_HEIGHT, World.BOT_WIDTH, World.BOT_HEIGHT);
+                    graphicsContext.fillRect(x * World.BOT_SIZE, y * World.BOT_SIZE, World.BOT_SIZE, World.BOT_SIZE);
                     world.organic = world.organic + 1;
                 } else if (bot.alive == 3) {
                     graphicsContext.setFill(Color.BLACK);
-                    graphicsContext.fillRect(x * World.BOT_WIDTH, y * World.BOT_HEIGHT, World.BOT_WIDTH, World.BOT_HEIGHT);
+                    graphicsContext.fillRect(x * World.BOT_SIZE, y * World.BOT_SIZE, World.BOT_SIZE, World.BOT_SIZE);
 
                     Color botColor = this.calculateBotColor(bot);
 
                     graphicsContext.setFill(botColor);
 
-                    graphicsContext.fillRect(x * World.BOT_WIDTH + 1, y * World.BOT_HEIGHT + 1,World.BOT_WIDTH -1, World.BOT_HEIGHT -1);
+                    graphicsContext.fillRect(x * World.BOT_SIZE + 1, y * World.BOT_SIZE + 1,World.BOT_SIZE -1, World.BOT_SIZE -1);
                 }
             }
         }
