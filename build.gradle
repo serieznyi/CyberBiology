@@ -14,6 +14,7 @@ group 'org.cyberbiology'
 
 dependencies {
     compile 'com.google.guava:guava:23.0'
+    compile 'org.openjfx:javafx:11'
     compile 'org.controlsfx:controlsfx:8.40.14'
     testCompile('org.junit.jupiter:junit-jupiter-api:5.3.0')
     testCompile('org.junit.jupiter:junit-jupiter-params:5.3.0')
