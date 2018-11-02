@@ -3,3 +3,6 @@
 /properties.xml
 /build/*
 /.gradle
+/*.iml
+/*.ipr
+/*.iws

@@ -1,9 +1,11 @@
 plugins {
     id 'java'
     id 'application'
-    id 'jacoco'
     id 'idea'
+    id 'com.google.osdetector' version '1.6.0'
 }
+
+ext.platform = osdetector.os == 'osx' ? 'mac' : osdetector.os == 'windows' ? 'win' : osdetector.os
 
 sourceCompatibility = '11'
 targetCompatibility = '11'
@@ -14,23 +16,17 @@ group 'org.cyberbiology'
 
 dependencies {
     compile 'com.google.guava:guava:23.0'
-    compile "org.openjfx:javafx-base:11"
-    compile "org.openjfx:javafx-graphics:11"
-    compile "org.openjfx:javafx-controls:11"
+    compile "org.openjfx:javafx-base:11:$platform"
+    compile "org.openjfx:javafx-graphics:11:$platform"
+    compile "org.openjfx:javafx-controls:11:$platform"
+    compile "org.openjfx:javafx-fxml:11:$platform"
     testCompile('org.junit.jupiter:junit-jupiter-api:5.3.0')
     testCompile('org.junit.jupiter:junit-jupiter-params:5.3.0')
     testRuntime('org.junit.jupiter:junit-jupiter-engine:5.3.0')
 }
 
 repositories {
-    jcenter()
-}
-
-jacocoTestReport {
-    reports {
-        xml.enabled true
-        html.enabled false
-    }
+    mavenCentral()
 }
 
 test {
