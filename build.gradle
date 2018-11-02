@@ -5,8 +5,8 @@ plugins {
     id 'idea'
 }
 
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
+sourceCompatibility = '11'
+targetCompatibility = '11'
 version = '1.0.0'
 mainClassName = 'org.cyberbiology.App'
 
@@ -14,8 +14,9 @@ group 'org.cyberbiology'
 
 dependencies {
     compile 'com.google.guava:guava:23.0'
-    compile 'org.openjfx:javafx:11'
-    compile 'org.controlsfx:controlsfx:8.40.14'
+    compile "org.openjfx:javafx-base:11"
+    compile "org.openjfx:javafx-graphics:11"
+    compile "org.openjfx:javafx-controls:11"
     testCompile('org.junit.jupiter:junit-jupiter-api:5.3.0')
     testCompile('org.junit.jupiter:junit-jupiter-params:5.3.0')
     testRuntime('org.junit.jupiter:junit-jupiter-engine:5.3.0')
