@@ -42,11 +42,3 @@ jacocoTestReport {
         html.enabled false
     }
 }
-
-sourceSets {
-    main {
-        java {
-            srcDir 'src/main/java'
-        }
-    }
-}
