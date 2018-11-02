@@ -6,6 +6,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import org.cyberbiology.App;
 import org.cyberbiology.domain.Size;
 import org.cyberbiology.helper.MemoryHelper;
@@ -87,6 +89,36 @@ public class MainController {
 
             this.renderModeMenu.getItems().add(menuItem);
         }
+
+        Rectangle clip = new Rectangle(this.mainPane.getWidth(), this.mainPane.getHeight());
+        this.mainPane.setClip(clip);
+        this.mainPane.getChildren().add(this.setupShadowPane());
+    }
+
+    private Pane setupShadowPane() {
+        int shadowSize = 100;
+
+        Pane shadowPane = new Pane();
+        shadowPane.setStyle(
+                "-fx-background-color: white;" +
+                "-fx-effect: dropshadow(gaussian, black, " + shadowSize + ", 0, 0, 0);" +
+                "-fx-background-insets: " + shadowSize + ";"
+        );
+
+        Rectangle innerBounds = new Rectangle();
+        Rectangle outerBounds = new Rectangle();
+        shadowPane.layoutBoundsProperty().addListener((observable, oldBounds, newBounds) -> {
+            innerBounds.relocate(newBounds.getMinX() + shadowSize, newBounds.getMinY() + shadowSize);
+            innerBounds.setWidth(newBounds.getWidth() - shadowSize * 2);
+            innerBounds.setHeight(newBounds.getHeight() - shadowSize * 2);
+            outerBounds.setWidth(newBounds.getWidth());
+            outerBounds.setHeight(newBounds.getHeight());
+
+            Shape clip = Shape.subtract(outerBounds, innerBounds);
+            shadowPane.setClip(clip);
+        });
+
+        return shadowPane;
     }
 
     public void initEventListeners() {
