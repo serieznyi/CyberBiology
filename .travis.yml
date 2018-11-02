@@ -9,3 +9,5 @@ script:
   - ./gradlew check
 after_success:
   - codecov
+install:
+- ./gradlew assemble --info
