@@ -6,6 +6,7 @@ before_script:
   - chmod +x gradlew
   - pip install --user codecov
 script:
+  - ./gradlew dependencies
   - ./gradlew build
 after_success:
   - codecov
