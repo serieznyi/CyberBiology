@@ -2,7 +2,12 @@ plugins {
     id 'java'
     id 'application'
     id 'idea'
+    id 'jacoco'
     id 'com.google.osdetector' version '1.6.0'
+}
+
+jacoco {
+    toolVersion = "0.8.2"
 }
 
 ext.platform = osdetector.os == 'osx' ? 'mac' : osdetector.os == 'windows' ? 'win' : osdetector.os
@@ -35,3 +40,12 @@ test {
         events "passed", "skipped", "failed"
     }
 }
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}
+
+check.dependsOn jacocoTestReport
