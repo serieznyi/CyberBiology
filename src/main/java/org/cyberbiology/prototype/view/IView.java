@@ -8,7 +8,7 @@ import org.cyberbiology.World;
 
 public interface IView
 {
-	public Image paint(World world,JPanel canvas);
+	Image paint(World world, JPanel canvas);
 
-	public String getName();
+	String getName();
 }

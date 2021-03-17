@@ -8,8 +8,8 @@ import org.cyberbiology.prototype.IBot;
 public interface IFrame
 {
 
-	public void addBot(IBot bot, int x, int y);
+	void addBot(IBot bot, int x, int y);
 
-	public int save(DataOutputStream fileout) throws IOException;
+	int save(DataOutputStream fileout) throws IOException;
 
 }

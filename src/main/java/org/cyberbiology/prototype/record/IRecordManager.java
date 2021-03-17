@@ -7,29 +7,29 @@ import org.cyberbiology.prototype.IBot;
 public interface IRecordManager
 {
 
-	public int getBufferSize();
+	int getBufferSize();
 
-	public int getFrameSavedCounter();
+	int getFrameSavedCounter();
 
-	public int getFrameSkipSize();
+	int getFrameSkipSize();
 
-	public boolean isRecording();
+	boolean isRecording();
 
-	public void startFrame();
+	void startFrame();
 
-	public void startRecording();
+	void startRecording();
 
-	public void stopFrame();
+	void stopFrame();
 
-	public boolean stopRecording();
+	boolean stopRecording();
 
-	public void writeBot(IBot bot, int x, int y);
+	void writeBot(IBot bot, int x, int y);
 
 	//public void save(File selectedFile);
 
-	public boolean haveRecord();
+	boolean haveRecord();
 
-	public void makeSnapShot();
+	void makeSnapShot();
 
 	//public void deleteRecord();
 

@@ -6,10 +6,10 @@ import org.cyberbiology.util.ProjectProperties;
 public interface IWindow
 {
 
-	public void paint();
+	void paint();
 
-	public void setView(IView view);
+	void setView(IView view);
 
-	public ProjectProperties getProperties();
+	ProjectProperties getProperties();
 
 }
