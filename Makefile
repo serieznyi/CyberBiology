@@ -2,13 +2,12 @@ all: clean class jar
 
 class:
 	@echo "$@"
-	javac -Xlint:unchecked ru/cyberbiology/test/MainWindow.java
-
-jar: ru/cyberbiology/test/*.class
-	@echo "$@"
-	@jar -cvmf META-INF/* world.jar $$(find ./ru/cyberbiology/ -type f -name "*.class" | xargs echo) 
 	mkdir -p ./build/
-	mv world.jar ./build/
+	cd ./src/main/java && javac -Xlint:unchecked -d ../../../build/ org/cyberbiology/MainWindow.java
+
+jar:
+	@echo "$@"
+	@cd ./build/ && jar -cvmf ../META-INF/* world.jar $$(find . -type f -name "*.class" | xargs echo)
 
 clean:
 	@echo "$@"
