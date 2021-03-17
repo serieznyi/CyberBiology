@@ -1,6 +1,10 @@
-## About
+## Readme
 
-CyberBiology - life simulator on computer
+Emulation if life
+
+# Requirements
+
+* java 8
 
 ## Build
 
@@ -13,5 +17,5 @@ make
 
 You can run after build:
 ```build
-java ./build/world.jar
+java -jar ./build/world.jar
 ```
