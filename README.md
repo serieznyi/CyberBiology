@@ -1,6 +1,6 @@
 ## Readme
 
-Emulation if life
+Emulation of life
 
 # Requirements
 
@@ -10,12 +10,12 @@ Emulation if life
 
 ### Linux
 
-Build artifact:
 ```bash
-make
+./gradlew run
 ```
 
-You can run after build:
-```build
-java -jar ./build/world.jar
+### Windows
+
+```bash
+gradlew.bat run
 ```
